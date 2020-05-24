@@ -1,0 +1,23 @@
+body
+{
+  margin: 0;
+  padding: 0;
+  
+  /* make it look decent enough */
+  background: #232323;
+  color: #cdcdcd;
+  font-family: "Avenir Next", "Avenir", sans-serif;
+  height: 100%;
+  width:100%;    
+}
+.btn{
+  background: #232323;
+  color: white;
+  border-radius: 25px;
+  border: 3px white solid;
+  padding-top: 0%;
+  height: min-content;
+  width: max-content;
+  margin: 1%;
+}
+
