@@ -21,6 +21,10 @@ button{
   margin: 1%;
   font-size: xx-large;
 }
+input{
+  border-radius: 25px;
+  font-size: x-large;
+}
 .slider {
   padding: 1rem;
   background: #232323;
