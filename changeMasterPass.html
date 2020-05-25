@@ -1,9 +1,9 @@
 <button class="btn" style="font-size: 3em;" onclick="goToInitialMenu()" >&lt;</button>
 <div id="changeMasterPasswords" align="center">
     
-    Old Password:<input type="password" id="old_master_password">show password:<input type="checkbox"><br>
-    New Password:<input type="password" id="new_master_password">show password:<input type="checkbox"><br>
-    Repeat Password:<input type="password" id="repeat_master_password">show password:<input type="checkbox"><br>
+    Old Password:<input type="password" id="old_master_password">show password:<input type="checkbox" onclick="showPassword('old_master_password')"><br>
+    New Password:<input type="password" id="new_master_password">show password:<input type="checkbox" onclick="showPassword('new_master_password')"><br>
+    Repeat Password:<input type="password" id="repeat_master_password">show password:<input type="checkbox" onclick="showPassword('repeat_master_password')"><br>
     <button onclick="changeMasterPassword(this,'old_master_password','new_master_password','repeat_master_password')">change Master Password</button><br>
     
    <script src="changeMasterPass.js">

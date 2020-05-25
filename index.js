@@ -8,7 +8,14 @@ const pages = {
 }
 
 
-
+function showPassword(input_id){
+    let input=getElement(input_id)
+    if(input.type=="password"){
+        input.type="text"
+    }else{
+        input.type="password"
+    }
+}
 function PageWithHeightRatio() {
     // 1 is equal size; >1 bigger width else the contrary
     return body.offsetWidth / body.offsetHeight

@@ -19,7 +19,7 @@ function ExportEncryptedDB(){
 }
 function ExportDecryptedCSV(){
     let html=""
-    html+=`Password:<input type="password" id="export_password">show password:<input type="checkbox"><br>`
+    html+=`Password:<input type="password" id="export_password">show password:<input type="checkbox" onclick="showPassword('export_password')"><br>`
     html+=`<button onclick="Export()">Export</button><br>`
     html+=`<textarea id="export_data"></textarea>`
     getElement("exportPasswords").innerHTML=html
