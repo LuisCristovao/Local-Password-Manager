@@ -7,15 +7,12 @@ function Export() {
     let data=dbToCsv(export_password.value)
     export_text_area.value=data
 }
-function ExportEncryptedData(){
-    let export_text_area = getElement("export_data")
-    export_text_area.value=exportDB()
-}
-function ExportEncryptedDB(){
-    let html=""
-    html+=`<button onclick="ExportEncryptedData()">Export</button><br>`
-    html+=`<textarea id="export_data"></textarea>`
-    getElement("exportPasswords").innerHTML=html
+
+function ExportEncryptedDB(btn){
+    let prev_state=btn.outerHTML
+    copyToClipboard(exportDB())
+    btn.innerHTML="Copy Encrypted DataBase to ClipBoard"
+    setTimeout(()=>{btn.outerHTML=prev_state},2000)
 }
 function ExportDecryptedCSV(){
     let html=""
