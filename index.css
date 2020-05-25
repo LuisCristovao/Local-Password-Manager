@@ -19,5 +19,12 @@ button{
   height: min-content;
   width: max-content;
   margin: 1%;
+  font-size: xx-large;
+}
+.slider {
+  padding: 1rem;
+  background: #eee;
+  height: 250px;
+  overflow: auto;
 }
 
