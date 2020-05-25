@@ -35,7 +35,7 @@ button{
 
 /* Track */
 .slider::-webkit-scrollbar-track {
-  background: rgb(71, 74, 75); 
+  background: #232323; 
 }
  
 /* Handle */
@@ -47,5 +47,5 @@ button{
 
 /* Handle on hover */
 .slider::-webkit-scrollbar-thumb:hover {
-  background: rgb(206, 206, 206); 
+  background: rgba(221, 219, 219, 0.938); 
 }
