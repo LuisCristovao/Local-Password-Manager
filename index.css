@@ -23,7 +23,7 @@ button{
 }
 .slider {
   padding: 1rem;
-  background: #eee;
+  background: #232323;
   height: 250px;
   overflow: auto;
 }
@@ -35,17 +35,17 @@ button{
 
 /* Track */
 .slider::-webkit-scrollbar-track {
-  background: lightblue; 
+  background: rgb(71, 74, 75); 
 }
  
 /* Handle */
 .slider::-webkit-scrollbar-thumb {
-  background: red; 
+  background: rgb(175, 174, 174); 
   border-radius: 10px;
   height:10px;
 }
 
 /* Handle on hover */
 .slider::-webkit-scrollbar-thumb:hover {
-  background: green; 
+  background: rgb(206, 206, 206); 
 }
