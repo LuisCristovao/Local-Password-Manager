@@ -27,4 +27,25 @@ button{
   height: 250px;
   overflow: auto;
 }
+.slider::-webkit-scrollbar {
+  width: 10px;
+  height:10px;
+  
+}
 
+/* Track */
+.slider::-webkit-scrollbar-track {
+  background: lightblue; 
+}
+ 
+/* Handle */
+.slider::-webkit-scrollbar-thumb {
+  background: red; 
+  border-radius: 10px;
+  height:10px;
+}
+
+/* Handle on hover */
+.slider::-webkit-scrollbar-thumb:hover {
+  background: green; 
+}
