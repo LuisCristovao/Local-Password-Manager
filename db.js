@@ -1,9 +1,28 @@
 let columns = ["site", "user", "pass", "description"]
+let firms_to_trick_attackers=["Apple","Microsoft","Samsung Electronics","Alphabet","Google","AT&amp;T","Amazon","Verizon Communications","China Mobile","Walt Disney","Facebook","Alibaba","Intel","Softbank","IBM","Tencent Holdings","Nippon Telegraph &amp; Tel","Cisco Systems","Oracle","Deutsche Telekom","Taiwan Semiconductor"]
+
+
+function getRandomValueFromArray(array){
+    return array[Math.floor(Math.random() * array.length)]
+}
+
+function RandomPass(size) {
+    
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,()/%&$#@=[]{} ";
+
+    for (var i = 0; i < size; i++){
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+
+    return text;
+  }
 
 function writeDB(data){
     localStorage["PM"]=data
 }
 function getDB(pass_value){
+    pass_value=pass_value.toString()
     db = localStorage["PM"]
     if(db==null){
         return []
@@ -26,7 +45,26 @@ function getDB(pass_value){
             })
             return decrypt_db
         }catch{
-            return []
+            db.split("\n").forEach(row=>{
+                if(row==""){
+                    
+                }else{
+                    let decrypt_line={}
+                    let decrypted_row = decrypt(row, pass_value)
+                    let row_window_length=Math.floor(decrypted_row.length/columns.length)
+                    for(i in columns){
+                        i=parseInt(i)
+                        if (columns[i]=="site"){
+                            decrypt_line[columns[i]]=getRandomValueFromArray(firms_to_trick_attackers)
+                        }else{
+
+                            decrypt_line[columns[i]]=RandomPass(Math.floor(Math.random() * 200))
+                        }
+                    }
+                    decrypt_db.push(decrypt_line)
+                }
+            })
+            return decrypt_db
         }
         
     }

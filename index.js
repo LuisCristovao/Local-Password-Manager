@@ -36,6 +36,10 @@ async function getHtml(filename) {
     let response = await fetch(filename);
     let val = await response.text();
     var el = document.createElement( 'DIV' );
+    el.style.width="100%"
+    el.style.height="100%"
+    el.style.position="relative"
+
     el.innerHTML=val
     body.appendChild(el)
     Array.from(el.getElementsByTagName( 'script' )).forEach(s => {

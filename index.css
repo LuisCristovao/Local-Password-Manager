@@ -1,16 +1,15 @@
-body
-{
+body {
   margin: 0;
   padding: 0;
-  
+
   /* make it look decent enough */
   background: #232323;
   color: #cdcdcd;
   font-family: "Avenir Next", "Avenir", sans-serif;
   height: 100%;
-  width:100%;    
+  width: 100%;
 }
-button{
+button {
   background: #232323;
   color: white;
   border-radius: 25px;
@@ -19,10 +18,11 @@ button{
   height: min-content;
   width: max-content;
   margin: 1%;
+  padding: 0.4%;
   font-size: xx-large;
 }
-input{
-  border-radius: 25px;
+input {
+  border-radius: 7px;
   font-size: x-large;
 }
 .slider {
@@ -33,23 +33,22 @@ input{
 }
 .slider::-webkit-scrollbar {
   width: 10px;
-  height:10px;
-  
+  height: 10px;
 }
 
 /* Track */
 .slider::-webkit-scrollbar-track {
-  background: #232323; 
+  background: #232323;
 }
- 
+
 /* Handle */
 .slider::-webkit-scrollbar-thumb {
-  background: rgb(175, 174, 174); 
+  background: rgb(175, 174, 174);
   border-radius: 10px;
-  height:10px;
+  height: 10px;
 }
 
 /* Handle on hover */
 .slider::-webkit-scrollbar-thumb:hover {
-  background: rgba(221, 219, 219, 0.938); 
+  background: rgba(221, 219, 219, 0.938);
 }

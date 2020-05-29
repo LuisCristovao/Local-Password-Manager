@@ -1,5 +1,18 @@
 
+let  prev_screen_ratio = PageWithHeightRatio()
+function createButtons(){
 
+}
+
+function checkScreenRatio() {
+    if (prev_screen_ratio != PageWithHeightRatio()) {
+        prev_screen_ratio=PageWithHeightRatio()
+        var export_page = ""
+        
+        getElement("exportPasswords").innerHTML = home_page
+    }
+    setTimeout(checkScreenRatio,350)
+}
 
 function Export() {
     let export_password = getElement("export_password")
