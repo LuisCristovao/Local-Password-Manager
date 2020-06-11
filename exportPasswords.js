@@ -24,7 +24,7 @@ function menuButtonsFontSize(){
 function backHomeBtnSize(){
     //width >= height
     if (PageWithHeightRatio() >= changeRatio) {
-        return `5em`
+        return `3em`
     }
     //height > width
     else {
@@ -79,7 +79,7 @@ function copyTextArea(btn){
 function ExportDecryptedCSV(){
     let html=""
     html+=`<div align="center" style="position:absolute;width:100%;heigh:100%">`
-    html+=`<button class="btn" style="font-size: ${backHomeBtnSize()};left:0%;position: absolute;" onclick="window.location.reload()" >&lt;</button>`
+    html+=`<button class="btn" style="font-size: ${backHomeBtnSize()};left:0%;position: absolute;margin:1%" onclick="window.location.reload()" >&lt;</button>`
     html+=`<p style="font-size:${(PageWithHeightRatio() >= changeRatio)?"2em":"6em"};margin-top:${(PageWithHeightRatio() >= changeRatio)?"10px":"300px"}">Password:</p>`
     html+=`<input style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.5em":"4em"}" type="password" id="export_password"><p style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.2em":"3em"}">show password:<input style="zoom:${(PageWithHeightRatio() >= changeRatio)?"1.5":"2.5"}" type="checkbox"  onclick="showPassword('export_password')"></p>`
     html+=`<button style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.5em":"4em"}" onclick="Export()">Export</button><br>`
@@ -112,4 +112,4 @@ function checkScreenRatio() {
     setTimeout(checkScreenRatio,350)
 }
 startExportPage()
-//checkScreenRatio()
+checkScreenRatio()
