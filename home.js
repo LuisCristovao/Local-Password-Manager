@@ -1,7 +1,7 @@
 const home_body = getElement("home_body")
 var prev_screen_ratio = PageWithHeightRatio()
 var time=0
-const changeRatio=1
+
 function createUL() {
     //width >= height
     if (PageWithHeightRatio() >= changeRatio) {

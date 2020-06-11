@@ -6,7 +6,7 @@ const pages = {
     "?Change-Master-Password": () => getHtml("changeMasterPass.html"),
     "?Export-Passwords": () => getHtml("exportPasswords.html")
 }
-
+const changeRatio=1
 const copyToClipboard = str => {
     const el = document.createElement('textarea');
     el.value = str;
