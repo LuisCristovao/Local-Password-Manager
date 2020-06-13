@@ -88,13 +88,22 @@ function ImportDecryptedCSV(){
 }
 function ImportFromOld(){
     //let html=getElement("importPasswords").innerHTML
-    let html=""
-    html+=`<p>Insert text Passwords like |id|site|user|password| in textarea.</p>`
-    html+=`<p>Each line must be a new site password.</p><br>`
-    html+=`<p><b>Only use this option if you used application on...</b></p><br>`
-    html+=`Password use to encrypt:<input id="password_import" type="password"><input type="checkbox" onclick="showPassword('password_import')">show password<br><br>`
-    html+=`<textarea id="data"></textarea>`
-    html+=`<button onclick="oldImport()">Old Import</button>`
+    
+    let html=`<button class="btn" style="font-size: ${backHomeBtnSize()};left:0%;position: absolute;margin:1%" onclick="window.location.reload()" >&lt;</button>`
+    html+=`<p style="${(PageWithHeightRatio() >= changeRatio)?"font-size:1.5em;margin-bottom:10px":"font-size:4em;margin-top:20%"}"><b>Only use this option if you used previous <a href="https://github.com/LuisCristovao/Local_Password_Manager_Server">application</a></b></p>`
+    html+=`<p style="${(PageWithHeightRatio() >= changeRatio)?"font-size:1.5em;":"font-size:4em"}">Password used to encrypt:</p><input style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.5em":"4em"}" id="password_import" type="password"><p style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.2em":"3em"}">show password:<input type="checkbox" style="zoom:${(PageWithHeightRatio() >= changeRatio)?"1.5":"2.5"}" onclick="showPassword('password_import')"></p>`
+    html+=`<p style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.2em":"3em"}" >Data splitting character:<input id="spliting character" type="text" value="," style="width:30;font-size:${(PageWithHeightRatio() >= changeRatio)?"1.5em":"1em"}"></p>`
+    html+=`<textarea id="data" style="${(PageWithHeightRatio() >= changeRatio)?"width:500;height:200;margin-bottom:10px;font-size:1.2em":"width:700;height:500;margin-bottom:30px;font-size:2.3em"}">`
+    html+=`facebook,user1,12345\n`
+    html+=`goole,user2,1223\n`
+    html+=`</textarea><br>`
+    html+=`<button style="font-size:${(PageWithHeightRatio() >= changeRatio)?"2em":"4em"}" onclick="oldImport()">Old Import</button>`
+    // html+=`<p>Insert text Passwords like |id|site|user|password| in textarea.</p>`
+    // html+=`<p>Each line must be a new site password.</p><br>`
+    // html+=`<p><b>Only use this option if you used application on...</b></p><br>`
+    // html+=`Password use to encrypt:<input id="password_import" type="password"><input type="checkbox" onclick="showPassword('password_import')">show password<br><br>`
+    // html+=`<textarea id="data"></textarea>`
+    // html+=`<button onclick="oldImport()">Old Import</button>`
     getElement("importPasswords").innerHTML=html
 }
 function oldImport(){
