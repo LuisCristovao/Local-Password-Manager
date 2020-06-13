@@ -54,16 +54,7 @@ function paragraphSize(){
         return `font-size:4em;margin-bottom:40px;margin-top:30%`
     }
 }
-function paragraphSize2(){
-    //width >= height
-    if (PageWithHeightRatio() >= changeRatio) {
-        return `font-size:2em;margin-bottom:30px;margin-top:100px`
-    }
-    //height > width
-    else {
-        return `font-size:4em;margin-bottom:40px;margin-top:30%`
-    }
-}
+
 //import {csvToDB} from db.js
 function ImportEncryptedDB(){
     //let html=getElement("importPasswords").innerHTML
