@@ -64,10 +64,10 @@ function Edit(btn, id) {
   let site = document.getElementsByName("site")[0];
   let description = document.getElementsByName("description")[0];
   if (btn.innerHTML == "Edit") {
-    username.style.height = `50px`;
+    username.style.height = `auto`;
     username.style.opacity = "100";
     username.style.border = "solid 1px white";
-    password.style.height = `50px`;
+    password.style.height = `auto`;
     password.style.opacity = "100";
     password.style.border = "solid 1px white";
     btn.innerHTML = "Submit";
@@ -109,10 +109,10 @@ function checkIfUserAndPassIsEmpty() {
   let username = document.getElementsByName("Username")[0];
   let password = document.getElementsByName("Password")[0];
   if (username.value == "" && password.value == "") {
-    username.style.height = "20px";
+    username.style.height = "auto";
     username.style.opacity = "100";
     username.style.border = "solid 1px white";
-    password.style.height = "20px";
+    password.style.height = "auto";
     password.style.opacity = "100";
     password.style.border = "solid 1px white";
   }
@@ -136,13 +136,13 @@ function show_password_info(show_data, id,edit=true) {
   modal=true
   let html = `<button class="btn" style="${backHomeBtnSize()}" onclick="CloseMenu(this)" >&lt;</button>`;
   html += `<div align="center" >`;
-  html += `<input  name="site" oninput="save(this,${id})" style="background:transparent;border:solid white 2px;color:white;font-size:${(PageWithHeightRatio() >= changeRatio)?"3em":"3em"};width:50%" text-align="right" value="${show_data.site}" placeholder="site/page ..."><br>`;
-  html += `<textarea name="description" oninput="save(this,${id})" style="background:transparent;border:solid white 2px;color:white;font-size:${(PageWithHeightRatio() >= changeRatio)?"3em":"3em"};width:50%" text-align="right" placeholder="Description ..." >${show_data.description}</textarea><br>`;
-  html += `<button style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.3em":"3em"}" onclick="Copy(this.innerText,this)">Copy Username</button><br>`;
-  html += `<input name="Username" style="height:0px;color:white;background:transparent;border:none;opacity:0" value="${show_data.user}" placeholder="username"><br>`;
-  html += `<button style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.3em":"3em"}" onclick="Copy(this.innerText,this)">Copy Password</button><br>`;
-  html += `<input name="Password" style="height:0px;color:white;background:transparent;border:none;opacity:0" value="${show_data.pass}" placeholder="password"><br>`;
-  html += `<button style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.3em":"3em"}" onclick="Edit(this,${id})">Edit</button>&nbsp;&nbsp;<button style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.3em":"3em"}" onclick="Delete(this,${id})">Delete</button>`;
+  html += `<input  name="site" oninput="save(this,${id})" style="background:transparent;border:solid white 2px;color:white;font-size:${(PageWithHeightRatio() >= changeRatio)?"3em":"6em"};width:${(PageWithHeightRatio() >= changeRatio)?"50%":"80%"}" text-align="right" value="${show_data.site}" placeholder="site/page ..."><br>`;
+  html += `<textarea name="description" oninput="save(this,${id})" style="background:transparent;border:solid white 2px;color:white;font-size:${(PageWithHeightRatio() >= changeRatio)?"3em":"5em"};width:${(PageWithHeightRatio() >= changeRatio)?"50%":"80%"};height:30%" text-align="right" placeholder="Description ..." >${show_data.description}</textarea><br>`;
+  html += `<button style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.3em":"5em"}" onclick="Copy(this.innerText,this)">Copy Username</button><br>`;
+  html += `<input name="Username" style="height:0px;color:white;background:transparent;border:none;opacity:0;margin:${(PageWithHeightRatio() >= changeRatio)?"0px":"30px"};font-size:${(PageWithHeightRatio() >= changeRatio)?"1.3em":"3.3em"}" value="${show_data.user}" placeholder="username"><br>`;
+  html += `<button style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.3em":"5em"}" onclick="Copy(this.innerText,this)">Copy Password</button><br>`;
+  html += `<input name="Password" style="height:0px;color:white;background:transparent;border:none;opacity:0;margin:${(PageWithHeightRatio() >= changeRatio)?"0px":"30px"};font-size:${(PageWithHeightRatio() >= changeRatio)?"1.3em":"3.3em"}" value="${show_data.pass}" placeholder="password"><br>`;
+  html += `<button style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.3em":"5em"}" onclick="Edit(this,${id})">Edit</button>${(PageWithHeightRatio() >= changeRatio)?"&nbsp;&nbsp;":"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"}<button style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.3em":"5em"}" onclick="Delete(this,${id})">Delete</button>`;
   html += "</div>";
 
   return html;
