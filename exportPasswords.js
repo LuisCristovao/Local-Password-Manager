@@ -109,7 +109,7 @@ function checkScreenRatio() {
         startExportPage()
 
     }
-    setTimeout(checkScreenRatio,350)
+    //setTimeout(checkScreenRatio,350)
 }
 startExportPage()
 checkScreenRatio()

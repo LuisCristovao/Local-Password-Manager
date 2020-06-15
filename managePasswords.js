@@ -282,7 +282,7 @@ function checkScreenRatio() {
       getList()
 
   }
-  setTimeout(checkScreenRatio,350)
+  //setTimeout(checkScreenRatio,350)
 }
 //Main----------
 let  prev_screen_ratio = PageWithHeightRatio()

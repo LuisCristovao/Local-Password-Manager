@@ -133,7 +133,7 @@ function checkScreenRatio() {
         startPage()
 
     }
-    setTimeout(checkScreenRatio,500)
+    //setTimeout(checkScreenRatio,500)
 }
 
 function startPage(){
