@@ -72,7 +72,7 @@ function ImportDecryptedCSV(){
     html+=`<p style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.2em":"3em"}" >Data splitting character:<input id="spliting character" type="text" value="," style="width:30;font-size:${(PageWithHeightRatio() >= changeRatio)?"1.5em":"1em"}"></p><br>`
     html+=`<textarea id="data" style="${(PageWithHeightRatio() >= changeRatio)?"width:500;height:200;margin-bottom:20px;font-size:1.2em":"width:700;height:500;margin-bottom:20px;font-size:2.3em"}">`
     html+=`facebook,user1,12345,facebook password example\n`
-    html+=`goole,user2,1223,google password example description\n`
+    html+=`google,user2,1223,google password example description\n`
     html+=`</textarea><br>`
     html+=`<button style="font-size:${(PageWithHeightRatio() >= changeRatio)?"2em":"4em"}" onclick="Import()">Import</button>`
     getElement("importPasswords").innerHTML=html

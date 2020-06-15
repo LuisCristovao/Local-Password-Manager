@@ -47,7 +47,7 @@ function showPassStyle(){
     }
     //height > width
     else {
-        return `style="font-size:2.5em;"`
+        return `style="font-size:2.8em;"`
     }
 }
 function inputStyle(){
@@ -67,7 +67,7 @@ function checkboxStyle(){
     }
     //height > width
     else {
-        return `style="zoom:2;"`
+        return `style="zoom:2.3;"`
     }
 }
 

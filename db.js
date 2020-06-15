@@ -45,26 +45,7 @@ function getDB(pass_value){
             })
             return decrypt_db
         }catch{
-            db.split("\n").forEach(row=>{
-                if(row==""){
-                    
-                }else{
-                    let decrypt_line={}
-                    let decrypted_row = decrypt(row, pass_value)
-                    let row_window_length=Math.floor(decrypted_row.length/columns.length)
-                    for(i in columns){
-                        i=parseInt(i)
-                        if (columns[i]=="site"){
-                            decrypt_line[columns[i]]=getRandomValueFromArray(firms_to_trick_attackers)
-                        }else{
-
-                            decrypt_line[columns[i]]=RandomPass(Math.floor(Math.random() * 200))
-                        }
-                    }
-                    decrypt_db.push(decrypt_line)
-                }
-            })
-            return decrypt_db
+            return []
         }
         
     }
