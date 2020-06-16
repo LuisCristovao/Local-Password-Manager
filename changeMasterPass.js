@@ -15,7 +15,9 @@ function changeMasterPassword(btn,old,new_pass,repeat){
         }else{
             //store db with new pass
             EncryptDB(db,new_password.value)
-
+            btn.style["font-size"]="1em"
+            btn.style.color="lawngreen"
+            btn.style["border-color"]="aqua"
             btn.innerHTML="Changed Master Password with Success!!"
             setTimeout(()=>{btn.outerHTML=previous_string},2000)
         } 
