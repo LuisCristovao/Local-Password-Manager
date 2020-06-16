@@ -17,11 +17,11 @@ let import_btns_array=[
 function menuButtonsFontSize(){
     //width >= height
     if (PageWithHeightRatio() >= changeRatio) {
-        return `3em`
+        return `2em`
     }
     //height > width
     else {
-        return `5em`
+        return `2em`
     }
 }
 function backHomeBtnSize(){
@@ -31,17 +31,17 @@ function backHomeBtnSize(){
     }
     //height > width
     else {
-        return `7em`
+        return `3em`
     }
 }
 function textareaSize(){
      //width >= height
      if (PageWithHeightRatio() >= changeRatio) {
-        return `width:500;height:250;margin-bottom:10px`
+        return `width:50%;height:30%;margin-bottom:10px;font-size:1.3em`
     }
     //height > width
     else {
-        return `width:600;height:800;margin-bottom:50px`
+        return `width:80%;height:60%;margin-bottom:10px;font-size:1.3em`
     }
 }
 function paragraphSize(){
@@ -51,7 +51,7 @@ function paragraphSize(){
     }
     //height > width
     else {
-        return `font-size:4em;margin-bottom:40px;margin-top:30%`
+        return `font-size:2em;margin-bottom:30px;margin-top:20%`
     }
 }
 
@@ -68,27 +68,27 @@ function ImportDecryptedCSV(){
     //let html=getElement("importPasswords").innerHTML
     let html=`<button class="btn" style="font-size: ${backHomeBtnSize()};left:0%;position: absolute;margin:1%" onclick="window.location.reload()" >&lt;</button>`
     
-    html+=`<p style="${(PageWithHeightRatio() >= changeRatio)?"font-size:1.9em;margin-bottom:10px":"font-size:4em;margin-top:30%"}">Password used to encrypt:</p><input style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.5em":"4em"}" id="password_import" type="password"><p style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.2em":"3em"}">show password:<input type="checkbox" style="zoom:${(PageWithHeightRatio() >= changeRatio)?"1.5":"2.5"}" onclick="showPassword('password_import')"></p>`
-    html+=`<p style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.2em":"3em"}" >Data splitting character:<input id="spliting character" type="text" value="," style="width:30;font-size:${(PageWithHeightRatio() >= changeRatio)?"1.5em":"1em"}"></p><br>`
-    html+=`<textarea id="data" style="${(PageWithHeightRatio() >= changeRatio)?"width:500;height:200;margin-bottom:20px;font-size:1.2em":"width:700;height:500;margin-bottom:20px;font-size:2.3em"}">`
+    html+=`<p style="${(PageWithHeightRatio() >= changeRatio)?"font-size:1.9em;margin-bottom:10px":"font-size:1.5em;margin-top:20%"}">Password used to encrypt:</p><input style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.5em":"1.5em"}" id="password_import" type="password"><p style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.2em":"1.2em"}">show password:<input type="checkbox" style="zoom:${(PageWithHeightRatio() >= changeRatio)?"1.5":"1.5"}" onclick="showPassword('password_import')"></p>`
+    html+=`<p style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.2em":"1.2em"}" >Data splitting character:<input id="spliting character" type="text" value="," style="width:30;font-size:${(PageWithHeightRatio() >= changeRatio)?"1.5em":"1em"}"></p><br>`
+    html+=`<textarea id="data" style="${(PageWithHeightRatio() >= changeRatio)?"width:500;height:200;margin-bottom:20px;font-size:1.2em":"width:80%;height:40%;margin-bottom:20px;font-size:1.2em"}">`
     html+=`facebook,user1,12345,facebook password example\n`
     html+=`google,user2,1223,google password example description\n`
     html+=`</textarea><br>`
-    html+=`<button style="font-size:${(PageWithHeightRatio() >= changeRatio)?"2em":"4em"}" onclick="Import()">Import</button>`
+    html+=`<button style="font-size:${(PageWithHeightRatio() >= changeRatio)?"2em":"2em"}" onclick="Import()">Import</button>`
     getElement("importPasswords").innerHTML=html
 }
 function ImportFromOld(){
     //let html=getElement("importPasswords").innerHTML
     
     let html=`<button class="btn" style="font-size: ${backHomeBtnSize()};left:0%;position: absolute;margin:1%" onclick="window.location.reload()" >&lt;</button>`
-    html+=`<p style="${(PageWithHeightRatio() >= changeRatio)?"font-size:1.5em;margin-bottom:10px":"font-size:4em;margin-top:20%"}"><b>Only use this option if you used previous <a href="https://github.com/LuisCristovao/Local_Password_Manager_Server">application</a></b></p>`
-    html+=`<p style="${(PageWithHeightRatio() >= changeRatio)?"font-size:1.5em;":"font-size:4em"}">Password used to encrypt:</p><input style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.5em":"4em"}" id="password_import" type="password"><p style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.2em":"3em"}">show password:<input type="checkbox" style="zoom:${(PageWithHeightRatio() >= changeRatio)?"1.5":"2.5"}" onclick="showPassword('password_import')"></p>`
-    html+=`<p style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.2em":"3em"}" >Data splitting character:<input id="spliting character" type="text" value="," style="width:30;font-size:${(PageWithHeightRatio() >= changeRatio)?"1.5em":"1em"}"></p>`
-    html+=`<textarea id="data" style="${(PageWithHeightRatio() >= changeRatio)?"width:500;height:200;margin-bottom:10px;font-size:1.2em":"width:700;height:500;margin-bottom:30px;font-size:2.3em"}">`
+    html+=`<p style="${(PageWithHeightRatio() >= changeRatio)?"font-size:1.5em;margin-bottom:10px":"font-size:1em;margin-top:20%"}"><b>Only use this option if you used previous <a href="https://github.com/LuisCristovao/Local_Password_Manager_Server">application</a></b></p>`
+    html+=`<p style="${(PageWithHeightRatio() >= changeRatio)?"font-size:1.5em;":"font-size:1.5em;margin-top:10px"}">Password used to encrypt:</p><input style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.5em":"1.5em"}" id="password_import" type="password"><p style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.2em":"1.2em"}">show password:<input type="checkbox" style="zoom:${(PageWithHeightRatio() >= changeRatio)?"1.5":"1.5"}" onclick="showPassword('password_import')"></p>`
+    html+=`<p style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.2em":"1.2em"}" >Data splitting character:<input id="spliting character" type="text" value="," style="width:30;font-size:${(PageWithHeightRatio() >= changeRatio)?"1.5em":"1em"}"></p>`
+    html+=`<textarea id="data" style="${(PageWithHeightRatio() >= changeRatio)?"width:500;height:200;margin-bottom:10px;font-size:1.2em":"width:80%;height:40%;margin-bottom:10px;font-size:1.2em"}">`
     html+=`facebook,user1,12345\n`
     html+=`goole,user2,1223\n`
     html+=`</textarea><br>`
-    html+=`<button style="font-size:${(PageWithHeightRatio() >= changeRatio)?"2em":"4em"}" onclick="oldImport()">Old Import</button>`
+    html+=`<button style="font-size:${(PageWithHeightRatio() >= changeRatio)?"2em":"1.5em"}" onclick="oldImport()">Old Import</button>`
     // html+=`<p>Insert text Passwords like |id|site|user|password| in textarea.</p>`
     // html+=`<p>Each line must be a new site password.</p><br>`
     // html+=`<p><b>Only use this option if you used application on...</b></p><br>`
