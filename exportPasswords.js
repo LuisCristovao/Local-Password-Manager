@@ -18,7 +18,7 @@ function menuButtonsFontSize(){
     }
     //height > width
     else {
-        return `5em`
+        return `2em`
     }
 }
 function backHomeBtnSize(){
@@ -28,7 +28,7 @@ function backHomeBtnSize(){
     }
     //height > width
     else {
-        return `7em`
+        return `3em`
     }
 }
 function checkScreenRatio() {
@@ -59,11 +59,11 @@ function ExportEncryptedDB(btn){
 function textareaSize(){
     //width >= height
     if (PageWithHeightRatio() >= changeRatio) {
-        return `width:50%;height:200;`
+        return `width:50%;height:200;margin-top:35px;font-size:1.5em`
     }
     //height > width
     else {
-        return `width:80%;height:500;margin-top:50px`
+        return `width:80%;height:230;margin-top:35px;font-size:1em`
     }
 }
 function copyTextArea(btn){
@@ -79,12 +79,12 @@ function copyTextArea(btn){
 function ExportDecryptedCSV(){
     let html=""
     html+=`<div align="center" style="position:absolute;width:100%;heigh:100%">`
-    html+=`<button class="btn" style="font-size: ${backHomeBtnSize()};left:0%;position: absolute;margin:1%" onclick="window.location.reload()" >&lt;</button>`
-    html+=`<p style="font-size:${(PageWithHeightRatio() >= changeRatio)?"2em":"6em"};margin-top:${(PageWithHeightRatio() >= changeRatio)?"10px":"300px"}">Password:</p>`
-    html+=`<input style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.5em":"4em"}" type="password" id="export_password"><p style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.2em":"3em"}">show password:<input style="zoom:${(PageWithHeightRatio() >= changeRatio)?"1.5":"2.5"}" type="checkbox"  onclick="showPassword('export_password')"></p>`
-    html+=`<button style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.5em":"4em"}" onclick="Export()">Export</button><br>`
+    html+=`<button class="btn" style="font-size: ${backHomeBtnSize()};left:0%;position: absolute;" onclick="window.location.reload()" >&lt;</button>`
+    html+=`<p style="font-size:${(PageWithHeightRatio() >= changeRatio)?"2em":"2em"};margin-top:${(PageWithHeightRatio() >= changeRatio)?"10px":"20px"}">Password:</p>`
+    html+=`<input style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.5em":"1.5em"}" type="password" id="export_password"><p style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.2em":"1.2em"}">show password:<input style="zoom:${(PageWithHeightRatio() >= changeRatio)?"1.5":"1.5"}" type="checkbox"  onclick="showPassword('export_password')"></p>`
+    html+=`<button style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.5em":"1.5em"}" onclick="Export()">Export</button><br>`
     html+=`<textarea id="export_data" style="${textareaSize()}"></textarea><br>`
-    html+=`<button style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.5em":"4em"};margin-top:35px" onclick="copyTextArea(this)">Copy Text</button>`
+    html+=`<button style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.5em":"1.5em"};margin-top:35px" onclick="copyTextArea(this)">Copy Text</button>`
     html+=`</div>`
 
     getElement("exportPasswords").innerHTML=html

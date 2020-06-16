@@ -165,7 +165,7 @@ function passwordMenu(id) {
   div.style.position = "absolute";
   div.style.width = "99.6%";
   div.style.top = "0px";
-  div.style.height = `${(PageWithHeightRatio() >= changeRatio)?"99.2%":"100%"}`;
+  div.style.height = `${(PageWithHeightRatio() >= changeRatio)?"99.2%":body.offsetHeight}`;
   div.style.margin = "0px";
   div.style.padding = "0px";
   div.style.background = "#232323";
@@ -173,6 +173,7 @@ function passwordMenu(id) {
   div.style["z-index"] = "20";
   div.innerHTML += show_password_info(db_line, id);
   body.appendChild(div);
+  getElement("ManagePasswords").style.height="0px"
 }
 
 function addNewPass() {
@@ -190,6 +191,7 @@ function addNewPass() {
   div.style["z-index"] = "20";
   div.innerHTML += show_password_info(emptyDbLine(), decrypt_db.length);
   body.appendChild(div);
+  
   //change Edit button to submit by finding in div children
   checkIfUserAndPassIsEmpty();
 }

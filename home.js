@@ -23,7 +23,7 @@ function createLi(text) {
     }
     //height > width
     else {
-        return `<li style="padding-top:15%;font-size:5em;cursor:pointer" onclick="goToUrl('?${text.replace(/ /g, '-')}')">${text}</li>`
+        return `<li style="padding-top:15%;font-size:2em;cursor:pointer" onclick="goToUrl('?${text.replace(/ /g, '-')}')">${text}</li>`
     }
 }
 
