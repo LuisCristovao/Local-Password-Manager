@@ -37,7 +37,7 @@ function paragraphSize(){
     }
     //height > width
     else {
-        return `font-size:4em;`
+        return `font-size:1.2em;`
     }
 }
 function showPassStyle(){
@@ -47,7 +47,7 @@ function showPassStyle(){
     }
     //height > width
     else {
-        return `style="font-size:2.8em;"`
+        return `style="font-size:1em;"`
     }
 }
 function inputStyle(){
@@ -57,7 +57,7 @@ function inputStyle(){
     }
     //height > width
     else {
-        return `style="font-size:4em;"`
+        return `style="font-size:x-large;"`
     }
 }
 function checkboxStyle(){
@@ -67,20 +67,20 @@ function checkboxStyle(){
     }
     //height > width
     else {
-        return `style="zoom:2.3;"`
+        return `style="zoom:1;"`
     }
 }
 
 function startPage(){
 
     let html=""
-    html+=`<button class="btn" style="font-size: ${(PageWithHeightRatio() >= changeRatio)?"3em":"7em"};left:0%;position: absolute;" onclick="goToInitialMenu()" >&lt;</button>`
-    html+=`<p style="${paragraphSize()}">Old Password:</p><input ${inputStyle()} type="password" id="old_master_password"><p ${showPassStyle()}>show password:<input ${checkboxStyle()} type="checkbox" onclick="showPassword('old_master_password')"></p>`
+    html+=`<button class="btn" style="font-size: ${(PageWithHeightRatio() >= changeRatio)?"3em":"3em"};left:0%;position: absolute;" onclick="goToInitialMenu()" >&lt;</button>`
+    html+=`<p style="${paragraphSize()};${(PageWithHeightRatio() >= changeRatio)?"margin-top:10%":"margin-top:20%"}">Old Password:</p><input ${inputStyle()} type="password" id="old_master_password"><p ${showPassStyle()}>show password:<input ${checkboxStyle()} type="checkbox" onclick="showPassword('old_master_password')"></p>`
     html+=`<div style="background:#cdcdcd;width:${(PageWithHeightRatio() >= changeRatio)?"60%":"95%"};height:1px"></div>`
     html+=`<p style="${paragraphSize()}">New Password:</p><input ${inputStyle()} type="password" id="new_master_password"><p ${showPassStyle()}>show password:<input ${checkboxStyle()} type="checkbox" onclick="showPassword('new_master_password')"></p>`
     html+=`<div style="background:#cdcdcd;width:${(PageWithHeightRatio() >= changeRatio)?"60%":"95%"};height:1px"></div>`
     html+=`<p style="${paragraphSize()}">Repeat Password:</p><input ${inputStyle()} type="password" id="repeat_master_password"><p ${showPassStyle()}>show password:<input ${checkboxStyle()} type="checkbox" onclick="showPassword('repeat_master_password')"></p>`
-    html+=`<button style="font-size: ${(PageWithHeightRatio() >= changeRatio)?"1.5em":"3.5em"}" onclick="changeMasterPassword(this,'old_master_password','new_master_password','repeat_master_password')">change Master Password</button><br></br>`
+    html+=`<button style="font-size: ${(PageWithHeightRatio() >= changeRatio)?"1.5em":"1.5em"}" onclick="changeMasterPassword(this,'old_master_password','new_master_password','repeat_master_password')">change Master Password</button><br></br>`
     getElement("changeMasterPasswords").innerHTML=html
 
 }
