@@ -4,9 +4,9 @@ let modal=false
 function createListElement(row,id){
   let html = "";
   html += `<div id="${id}" class="pass_list">`;
-  html += `<p style="font-size:${(PageWithHeightRatio() >= changeRatio)?"2em":"3em"};margin:10px">${row.site}</p>`;
-  html += `<p style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.2em":"2em"};margin:10px">${row.description}</p>`;
-  html += `<button style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.8em":"3em"}" onclick="passwordMenu(${id})">Open</button>`;
+  html += `<p style="font-size:${(PageWithHeightRatio() >= changeRatio)?"2em":"2em"};margin:10px">${row.site}</p>`;
+  html += `<p style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.2em":"1.2em"};margin:10px">${row.description}</p>`;
+  html += `<button style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.8em":"1.8em"}" onclick="passwordMenu(${id})">Open</button>`;
   html += `</div>`;
   return html
 }
@@ -132,17 +132,18 @@ function save(input, id) {
   updateDB(db_line, id, manager_pass.value);
   getList();
 }
+
 function show_password_info(show_data, id,edit=true) {
   modal=true
   let html = `<button class="btn" style="${backHomeBtnSize()}" onclick="CloseMenu(this)" >&lt;</button>`;
   html += `<div align="center" >`;
-  html += `<input  name="site" oninput="save(this,${id})" style="background:transparent;border:solid white 2px;color:white;font-size:${(PageWithHeightRatio() >= changeRatio)?"3em":"6em"};width:${(PageWithHeightRatio() >= changeRatio)?"50%":"80%"}" text-align="right" value="${show_data.site}" placeholder="site/page ..."><br>`;
-  html += `<textarea name="description" oninput="save(this,${id})" style="background:transparent;border:solid white 2px;color:white;font-size:${(PageWithHeightRatio() >= changeRatio)?"3em":"5em"};width:${(PageWithHeightRatio() >= changeRatio)?"50%":"80%"};height:30%" text-align="right" placeholder="Description ..." >${show_data.description}</textarea><br>`;
-  html += `<button style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.3em":"5em"}" onclick="Copy(this.innerText,this)">Copy Username</button><br>`;
-  html += `<input name="Username" style="height:0px;color:white;background:transparent;border:none;opacity:0;margin:${(PageWithHeightRatio() >= changeRatio)?"0px":"30px"};font-size:${(PageWithHeightRatio() >= changeRatio)?"1.3em":"3.3em"}" value="${show_data.user}" placeholder="username"><br>`;
-  html += `<button style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.3em":"5em"}" onclick="Copy(this.innerText,this)">Copy Password</button><br>`;
-  html += `<input name="Password" style="height:0px;color:white;background:transparent;border:none;opacity:0;margin:${(PageWithHeightRatio() >= changeRatio)?"0px":"30px"};font-size:${(PageWithHeightRatio() >= changeRatio)?"1.3em":"3.3em"}" value="${show_data.pass}" placeholder="password"><br>`;
-  html += `<button style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.3em":"5em"}" onclick="Edit(this,${id})">Edit</button>${(PageWithHeightRatio() >= changeRatio)?"&nbsp;&nbsp;":"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"}<button style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.3em":"5em"}" onclick="Delete(this,${id})">Delete</button>`;
+  html += `<input  name="site" oninput="save(this,${id})" style="background:transparent;border:solid white 2px;color:white;font-size:${(PageWithHeightRatio() >= changeRatio)?"3em":"1.5em"};width:${(PageWithHeightRatio() >= changeRatio)?"50%":"80%"}" text-align="right" value="${show_data.site}" placeholder="site/page ..."><br>`;
+  html += `<textarea name="description" oninput="save(this,${id})" style="background:transparent;border:solid white 2px;color:white;font-size:${(PageWithHeightRatio() >= changeRatio)?"3em":"1.5em"};width:${(PageWithHeightRatio() >= changeRatio)?"50%":"80%"};height:30%" text-align="right" placeholder="Description ..." >${show_data.description}</textarea><br>`;
+  html += `<button style="font-size:${buttonSize()};margin-top:20px" onclick="Copy(this.innerText,this)">Copy Username</button><br>`;
+  html += `<input name="Username" style="height:0px;color:white;background:transparent;border:none;opacity:0;margin:${(PageWithHeightRatio() >= changeRatio)?"0px":"10px"};font-size:${(PageWithHeightRatio() >= changeRatio)?"1.3em":"1.3em"}" value="${show_data.user}" placeholder="username"><br>`;
+  html += `<button style="font-size:${buttonSize()} margin-bottom:20px" onclick="Copy(this.innerText,this)">Copy Password</button><br>`;
+  html += `<input name="Password" style="height:0px;color:white;background:transparent;border:none;opacity:0;margin:${(PageWithHeightRatio() >= changeRatio)?"0px":"10px"};font-size:${(PageWithHeightRatio() >= changeRatio)?"1.3em":"1.3em"}" value="${show_data.pass}" placeholder="password"><br>`;
+  html += `<button style="font-size:${buttonSize()}" onclick="Edit(this,${id})">Edit</button>${(PageWithHeightRatio() >= changeRatio)?"&nbsp;&nbsp;":"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"}<button style="font-size:${buttonSize()}" onclick="Delete(this,${id})">Delete</button>`;
   html += "</div>";
 
   return html;
@@ -165,7 +166,7 @@ function passwordMenu(id) {
   div.style.position = "absolute";
   div.style.width = "99.6%";
   div.style.top = "0px";
-  div.style.height = `${(PageWithHeightRatio() >= changeRatio)?"99.2%":body.offsetHeight}`;
+  div.style.height = `${body.offsetHeight}`;
   div.style.margin = "0px";
   div.style.padding = "0px";
   div.style.background = "#232323";
@@ -173,7 +174,7 @@ function passwordMenu(id) {
   div.style["z-index"] = "20";
   div.innerHTML += show_password_info(db_line, id);
   body.appendChild(div);
-  getElement("ManagePasswords").style.height="0px"
+  
 }
 
 function addNewPass() {
@@ -183,7 +184,7 @@ function addNewPass() {
   div.style.position = "absolute";
   div.style.width = "100%";
   div.style.top = "0px";
-  div.style.height = `${(PageWithHeightRatio() >= changeRatio)?"99.2%":"100%"}`;
+  div.style.height = `${body.offsetHeight}`;
   div.style.margin = "0px";
   div.style.padding = "0px";
   div.style.background = "#232323";
@@ -203,7 +204,7 @@ function paragraphSize(){
   }
   //height > width
   else {
-      return `font-size:4em;`
+      return `font-size:1.4em;`
   }
 }
 function buttonSize(){
@@ -213,7 +214,7 @@ function buttonSize(){
   }
   //height > width
   else {
-      return `font-size:3.5em;`
+      return `font-size:1.3em;`
   }
 }
 function inputStyle(){
@@ -223,7 +224,7 @@ function inputStyle(){
   }
   //height > width
   else {
-      return `style="font-size:4em;"`
+      return `style="font-size:large;"`
   }
 }
 function checkboxStyle(){
@@ -233,7 +234,7 @@ function checkboxStyle(){
   }
   //height > width
   else {
-      return `style="zoom:2.3;"`
+      return `style="zoom:1;"`
   }
 }
 function listHeight(){
@@ -256,7 +257,7 @@ function backHomeBtnSize(){
   }
   //height > width
   else {
-      return `font-size:7em`
+      return `font-size:3em`
   }
 }
 function startPage(){
@@ -265,7 +266,7 @@ function startPage(){
   html+=`<button class="btn" style="${backHomeBtnSize()};left:0%;position: absolute;" onclick="goToInitialMenu()" >&lt;</button>`
   html+=`<p style="${paragraphSize()};margin-bottom:10px">Master Password</p>`
   html+=`<input ${inputStyle()} id="pass" type="password" placeholder="type master pass here">`
-  html+=`<p style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.2em":"3em"};margin:10px" >show password:<input ${checkboxStyle()} type="checkbox" onclick="showPassword('pass')"></p>`
+  html+=`<p style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.2em":"1.2em"};margin:10px" >show password:<input ${checkboxStyle()} type="checkbox" onclick="showPassword('pass')"></p>`
   html+=`<button style="${buttonSize()};margin:10px;" onclick="getList()">Get Passwords List</button><br>`
   html+=`<p style="${paragraphSize()};margin:10px">Search</p>`
   html+=`<input ${inputStyle()} type="text" oninput="list_DB_With_Search(this)" placeholder="search password"><br>`
