@@ -74,7 +74,7 @@ function ImportDecryptedCSV(){
     html+=`facebook,user1,12345,facebook password example\n`
     html+=`google,user2,1223,google password example description\n`
     html+=`</textarea><br>`
-    html+=`<button style="font-size:${(PageWithHeightRatio() >= changeRatio)?"2em":"2em"}" onclick="Import()">Import</button>`
+    html+=`<button style="font-size:${(PageWithHeightRatio() >= changeRatio)?"2em":"2em"}" onclick="Import(this)">Import</button>`
     getElement("importPasswords").innerHTML=html
 }
 function ImportFromOld(){
@@ -83,12 +83,12 @@ function ImportFromOld(){
     let html=`<button class="btn" style="font-size: ${backHomeBtnSize()};left:0%;position: absolute;margin:1%" onclick="window.location.reload()" >&lt;</button>`
     html+=`<p style="${(PageWithHeightRatio() >= changeRatio)?"font-size:1.5em;margin-bottom:10px":"font-size:1em;margin-top:20%"}"><b>Only use this option if you used previous <a href="https://github.com/LuisCristovao/Local_Password_Manager_Server">application</a></b></p>`
     html+=`<p style="${(PageWithHeightRatio() >= changeRatio)?"font-size:1.5em;":"font-size:1.5em;margin-top:10px"}">Password used to encrypt:</p><input style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.5em":"1.5em"}" id="password_import" type="password"><p style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.2em":"1.2em"}">show password:<input type="checkbox" style="zoom:${(PageWithHeightRatio() >= changeRatio)?"1.5":"1.5"}" onclick="showPassword('password_import')"></p>`
-    html+=`<p style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.2em":"1.2em"}" >Data splitting character:<input id="spliting character" type="text" value="," style="width:30;font-size:${(PageWithHeightRatio() >= changeRatio)?"1.5em":"1em"}"></p>`
+    //html+=`<p style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.2em":"1.2em"}" >Data splitting character:<input id="spliting character" type="text" value="," style="width:30;font-size:${(PageWithHeightRatio() >= changeRatio)?"1.5em":"1em"}"></p>`
     html+=`<textarea id="data" style="${(PageWithHeightRatio() >= changeRatio)?"width:500;height:200;margin-bottom:10px;font-size:1.2em":"width:80%;height:40%;margin-bottom:10px;font-size:1.2em"}">`
-    html+=`facebook,user1,12345\n`
-    html+=`goole,user2,1223\n`
+    html+=`1\tfacebook\tuser1\t12345\n`
+    html+=`2\tgoole\tuser2\t1223\n`
     html+=`</textarea><br>`
-    html+=`<button style="font-size:${(PageWithHeightRatio() >= changeRatio)?"2em":"1.5em"}" onclick="oldImport()">Old Import</button>`
+    html+=`<button style="font-size:${(PageWithHeightRatio() >= changeRatio)?"2em":"1.5em"}" onclick="oldImport(this)">Old Import</button>`
     // html+=`<p>Insert text Passwords like |id|site|user|password| in textarea.</p>`
     // html+=`<p>Each line must be a new site password.</p><br>`
     // html+=`<p><b>Only use this option if you used application on...</b></p><br>`
@@ -97,35 +97,92 @@ function ImportFromOld(){
     // html+=`<button onclick="oldImport()">Old Import</button>`
     getElement("importPasswords").innerHTML=html
 }
-function oldImport(){
+function oldImport(btn){
     let password_import = getElement("password_import")
-    let data = getElement("data")
-    let filtered_data=""
-    data.value.split("\n").forEach(row => {
-        if(row==""){
+    let prev_state=btn.outerHTML
+    if(password_import.value==""){
+        btn=fail_btn(btn)
+        btn.innerHTML="Empty Pass!"
+        setTimeout(()=>{btn.outerHTML=prev_state},2000)
+    }else{
 
+        let data = getElement("data")
+        let filtered_data=""
+        data.value.split("\n").forEach(row => {
+            if(row==""){
+    
+            }else{
+    
+                let cols=row.split("\t")
+                filtered_data+=`${cols[1]}\t${cols[2]}\t${cols[3]}\tdescription...\n`
+            }
+        });
+        if(filtered_data==""){
+            btn=fail_btn(btn)
+            btn.innerHTML="Import Error"
+            setTimeout(()=>{btn.outerHTML=prev_state},2000)
+            data.value = "Something got wrong try to export again from previous app."
         }else{
-
-            let cols=row.split("\t")
-            filtered_data+=`${cols[1]}\t${cols[2]}\t${cols[3]}\tdescription...\n`
+            btn=success_btn(btn)
+            btn.innerHTML="Success!"
+            setTimeout(()=>{btn.outerHTML=prev_state},2000)
+            csvToDB(filtered_data,password_import.value,"\t")
+            data.value = "Imported passwords and encrypted them!"
         }
-    });
-    csvToDB(filtered_data,password_import.value,"\t")
-    data.value = "Imported passwords and encrypted them!"
+    }
 }
-function Import() {
-
+function success_btn(btn){
+    //btn.style["font-size"]="1em"
+    btn.style.color="lawngreen"
+    btn.style["border-color"]="aqua"
+    return btn
+}
+function fail_btn(btn){
+    //btn.style["font-size"]="1em"
+    btn.style.color="red"
+    btn.style["border-color"]="currentcolor"
+    return btn
+}
+function Import(btn) {
+    let prev_state=btn.outerHTML
     let password_import = getElement("password_import")
-let data = getElement("data")
-let split_data_character = getElement("spliting character")
-    csvToDB(data.value,password_import.value,split_data_character.value)
-    data.value = "Imported passwords and encrypted them!"
+    if(password_import.value==""){
+        btn=fail_btn(btn)
+        btn.innerHTML="Empty Pass!"
+        setTimeout(()=>{btn.outerHTML=prev_state},2000)
+    }else{
+
+        let data = getElement("data")
+        let split_data_character = getElement("spliting character")
+        if(split_data_character.value==""){
+            btn=fail_btn(btn)
+            btn.innerHTML="Import Error"
+            setTimeout(()=>{btn.outerHTML=prev_state},2000)
+            data.value="Empty split character"
+        }else{
+            if(!csvToDB(data.value,password_import.value,split_data_character.value)){
+                data.value = "Error reading data, check if the information inserted is similar to the initial example."
+                btn=fail_btn(btn)
+                btn.innerHTML="Import Error"
+                setTimeout(()=>{btn.outerHTML=prev_state},2000)
+            }else{
+                btn=success_btn(btn)
+                btn.innerHTML="Success!"
+                setTimeout(()=>{btn.outerHTML=prev_state},2000)
+                data.value = "Imported passwords and encrypted them!"
+            }
+        }
+    }
 }
 function ImportEncrypted(btn){
     let prev_state=btn.outerHTML
+
     let edb=document.getElementsByTagName("textarea")[0]
     writeDB(edb.value)
     edb.value="Imported with success!"
+    btn=success_btn(btn)
+    btn.innerHTML="Success!"
+    setTimeout(()=>{btn.outerHTML=prev_state},2000)
 }
 function checkScreenRatio() {
     if (prev_screen_ratio != PageWithHeightRatio()) {

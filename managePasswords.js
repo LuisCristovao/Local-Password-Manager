@@ -4,7 +4,7 @@ function createListElement(row, id) {
   let html = "";
   html += `<div id="${id}" class="pass_list">`;
   html += `<p style="font-size:${
-    PageWithHeightRatio() >= changeRatio ? "2em" : "2em"
+    PageWithHeightRatio() >= changeRatio ? "2em" : "1.5em"
   };margin:10px">${row.site}</p>`;
   html += `<p style="font-size:${
     PageWithHeightRatio() >= changeRatio ? "1.2em" : "1.2em"

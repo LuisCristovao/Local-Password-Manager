@@ -38,7 +38,7 @@ async function getHtml(filename) {
     var el = document.createElement( 'DIV' );
     el.style.width="100%"
     el.style.height="100%"
-    el.style.position="relative"
+    el.style.position="absolute"
 
     el.innerHTML=val
     body.appendChild(el)

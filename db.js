@@ -88,7 +88,11 @@ function csvToDB(data,pass_value,split_data_character){
             db.push(encrypt(JSON.stringify(db_line), pass_value))
         }
     })
+    if(db.length==0){
+        return false
+    }
     localStorage["PM"] = db.reduce((acc, n) => acc + '\n' + n)
+    return true
 }
 function emptyDbLine(){
     line={}
