@@ -107,14 +107,26 @@ function dbToCsv(pass_value){
     let data = localStorage["PM"]
     let line = ""
     let db = ""
-    data.split("\n").forEach(row => {
+    let error_code=0
+    let rows=data.split("\n")
+    for (let i=0;i<rows.length;i++){
+        let row=rows[i]
         let d = decrypt(row, pass_value)
         if(row==""){
 
         }else{
+            try{
 
-            let d_json = JSON.parse(d)
+                let d_json = JSON.parse(d)
+            }catch{
+                if(d!=""){
+                    return [db,1]
+                }else{
+                    return [db,1]
+                }
+            }
             line = ""
+            let d_json = JSON.parse(d)
             columns.forEach((col, index) => {
                 if (index < columns.length-1) {
     
@@ -126,8 +138,8 @@ function dbToCsv(pass_value){
             line += '\n'
             db += line
         }
-    })
-    return db
+    }
+    return [db,0]
 }
 function exportDB(){
     return localStorage["PM"]
