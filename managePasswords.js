@@ -1,60 +1,64 @@
-
-let modal=false
+let modal = false;
 //manager_pass.setAttribute("oninput","getList()")
-function createListElement(row,id){
+function createListElement(row, id) {
   let html = "";
   html += `<div id="${id}" class="pass_list">`;
-  html += `<p style="font-size:${(PageWithHeightRatio() >= changeRatio)?"2em":"2em"};margin:10px">${row.site}</p>`;
-  html += `<p style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.2em":"1.2em"};margin:10px">${row.description}</p>`;
-  html += `<button style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.8em":"1.8em"}" onclick="passwordMenu(${id})">Open</button>`;
+  html += `<p style="font-size:${
+    PageWithHeightRatio() >= changeRatio ? "2em" : "2em"
+  };margin:10px">${row.site}</p>`;
+  html += `<p style="font-size:${
+    PageWithHeightRatio() >= changeRatio ? "1.2em" : "1.2em"
+  };margin:10px">${row.description}</p>`;
+  html += `<button style="font-size:${
+    PageWithHeightRatio() >= changeRatio ? "1.8em" : "1.8em"
+  }" onclick="passwordMenu(${id})">Open</button>`;
   html += `</div>`;
-  return html
+  return html;
 }
-function listDB(db,filtered_ids=[]){
+function listDB(db, filtered_ids = []) {
   let password_list = getElement("passwords_list");
   if (db.length == 0) {
     password_list.innerHTML = `<p style="${paragraphSize()}">Empty or Wrong Password</p>`;
   } else {
     let html = "";
-    if(filtered_ids.length==0){
+    if (filtered_ids.length == 0) {
       db.forEach((row, id) => {
-        html+=createListElement(row,id)
+        html += createListElement(row, id);
       });
-    }else{
-      filtered_ids.forEach(id => {
-        let row=db[id]
-        html+=createListElement(row,id)
+    } else {
+      filtered_ids.forEach((id) => {
+        let row = db[id];
+        html += createListElement(row, id);
       });
     }
     password_list.innerHTML = html;
   }
 }
 
-
-function list_DB_With_Search(input){
+function list_DB_With_Search(input) {
   let manager_pass = getElement("pass");
-  let db=getDB(manager_pass.value)
-  let search_word=input.value
-  let newdb_ids=findBestMatchs(db,search_word)
+  let db = getDB(manager_pass.value);
+  let search_word = input.value;
+  let newdb_ids = findBestMatchs(db, search_word);
   //z.filter((el,i)=>x.some(j => i === j))
   //filter db by newly found matches id
   //db.filter((el,i)=>newdb_ids.some(j => i === j))
-  listDB(db,newdb_ids)
+  listDB(db, newdb_ids);
 }
 function getList() {
   let manager_pass = getElement("pass");
   let password_list = getElement("passwords_list");
   if (manager_pass.value == "") {
-    password_list.innerHTML = `<p style="${paragraphSize()}">No password inserted!</p>`
+    password_list.innerHTML = `<p style="${paragraphSize()}">No password inserted!</p>`;
   } else {
     let db = getDB(manager_pass.value);
-    listDB(db)
+    listDB(db);
   }
 }
 function CloseMenu(btn) {
   let parent = btn.parentElement;
   parent.parentElement.removeChild(parent);
-  modal=false
+  modal = false;
 }
 
 function Edit(btn, id) {
@@ -101,8 +105,7 @@ function Delete(btn, id) {
     //close window menu
     let parent = btn.parentElement;
     let parent2 = parent.parentElement;
-    parent2.parentElement.removeChild(parent2)
-    
+    parent2.parentElement.removeChild(parent2);
   }
 }
 function checkIfUserAndPassIsEmpty() {
@@ -133,17 +136,41 @@ function save(input, id) {
   getList();
 }
 
-function show_password_info(show_data, id,edit=true) {
-  modal=true
+function show_password_info(show_data, id, edit = true) {
+  modal = true;
   let html = `<button class="btn" style="${backHomeBtnSize()}" onclick="CloseMenu(this)" >&lt;</button>`;
   html += `<div align="center" >`;
-  html += `<input  name="site" oninput="save(this,${id})" style="background:transparent;border:solid white 2px;color:white;font-size:${(PageWithHeightRatio() >= changeRatio)?"3em":"1.5em"};width:${(PageWithHeightRatio() >= changeRatio)?"50%":"80%"}" text-align="right" value="${show_data.site}" placeholder="site/page ..."><br>`;
-  html += `<textarea name="description" oninput="save(this,${id})" style="background:transparent;border:solid white 2px;color:white;font-size:${(PageWithHeightRatio() >= changeRatio)?"3em":"1.5em"};width:${(PageWithHeightRatio() >= changeRatio)?"50%":"80%"};height:30%" text-align="right" placeholder="Description ..." >${show_data.description}</textarea><br>`;
+  html += `<input  name="site" oninput="save(this,${id})" style="background:transparent;border:solid white 2px;color:white;font-size:${
+    PageWithHeightRatio() >= changeRatio ? "3em" : "1.5em"
+  };width:${
+    PageWithHeightRatio() >= changeRatio ? "50%" : "80%"
+  }" text-align="right" value="${
+    show_data.site
+  }" placeholder="site/page ..."><br>`;
+  html += `<textarea name="description" oninput="save(this,${id})" style="background:transparent;border:solid white 2px;color:white;font-size:${
+    PageWithHeightRatio() >= changeRatio ? "3em" : "1.5em"
+  };width:${
+    PageWithHeightRatio() >= changeRatio ? "50%" : "80%"
+  };height:30%" text-align="right" placeholder="Description ..." >${
+    show_data.description
+  }</textarea><br>`;
   html += `<button style="font-size:${buttonSize()};margin-top:20px" onclick="Copy(this.innerText,this)">Copy Username</button><br>`;
-  html += `<input name="Username" style="height:0px;color:white;background:transparent;border:none;opacity:0;margin:${(PageWithHeightRatio() >= changeRatio)?"0px":"10px"};font-size:${(PageWithHeightRatio() >= changeRatio)?"1.3em":"1.3em"}" value="${show_data.user}" placeholder="username"><br>`;
+  html += `<input name="Username" style="height:0px;color:white;background:transparent;border:none;opacity:0;margin:${
+    PageWithHeightRatio() >= changeRatio ? "0px" : "10px"
+  };font-size:${
+    PageWithHeightRatio() >= changeRatio ? "1.3em" : "1.3em"
+  }" value="${show_data.user}" placeholder="username"><br>`;
   html += `<button style="font-size:${buttonSize()} margin-bottom:20px" onclick="Copy(this.innerText,this)">Copy Password</button><br>`;
-  html += `<input name="Password" style="height:0px;color:white;background:transparent;border:none;opacity:0;margin:${(PageWithHeightRatio() >= changeRatio)?"0px":"10px"};font-size:${(PageWithHeightRatio() >= changeRatio)?"1.3em":"1.3em"}" value="${show_data.pass}" placeholder="password"><br>`;
-  html += `<button style="font-size:${buttonSize()}" onclick="Edit(this,${id})">Edit</button>${(PageWithHeightRatio() >= changeRatio)?"&nbsp;&nbsp;":"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"}<button style="font-size:${buttonSize()}" onclick="Delete(this,${id})">Delete</button>`;
+  html += `<input name="Password" style="height:0px;color:white;background:transparent;border:none;opacity:0;margin:${
+    PageWithHeightRatio() >= changeRatio ? "0px" : "10px"
+  };font-size:${
+    PageWithHeightRatio() >= changeRatio ? "1.3em" : "1.3em"
+  }" value="${show_data.pass}" placeholder="password"><br>`;
+  html += `<button style="font-size:${buttonSize()}" onclick="Edit(this,${id})">Edit</button>${
+    PageWithHeightRatio() >= changeRatio
+      ? "&nbsp;&nbsp;"
+      : "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+  }<button style="font-size:${buttonSize()}" onclick="Delete(this,${id})">Delete</button>`;
   html += "</div>";
 
   return html;
@@ -174,7 +201,6 @@ function passwordMenu(id) {
   div.style["z-index"] = "20";
   div.innerHTML += show_password_info(db_line, id);
   body.appendChild(div);
-  
 }
 
 function addNewPass() {
@@ -192,107 +218,105 @@ function addNewPass() {
   div.style["z-index"] = "20";
   div.innerHTML += show_password_info(emptyDbLine(), decrypt_db.length);
   body.appendChild(div);
-  
+
   //change Edit button to submit by finding in div children
   checkIfUserAndPassIsEmpty();
 }
 
-function paragraphSize(){
+function paragraphSize() {
   //width >= height
   if (PageWithHeightRatio() >= changeRatio) {
-      return `font-size:1.4em;`
+    return `font-size:1.4em;`;
   }
   //height > width
   else {
-      return `font-size:1.4em;`
+    return `font-size:1.4em;`;
   }
 }
-function buttonSize(){
+function buttonSize() {
   //width >= height
   if (PageWithHeightRatio() >= changeRatio) {
-      return `font-size:1.3em;`
+    return `font-size:1.3em;`;
   }
   //height > width
   else {
-      return `font-size:1.3em;`
+    return `font-size:1.3em;`;
   }
 }
-function inputStyle(){
+function inputStyle() {
   //width >= height
   if (PageWithHeightRatio() >= changeRatio) {
-      return `style="font-size:large;"`
+    return `style="font-size:large;"`;
   }
   //height > width
   else {
-      return `style="font-size:large;"`
+    return `style="font-size:large;"`;
   }
 }
-function checkboxStyle(){
+function checkboxStyle() {
   //width >= height
   if (PageWithHeightRatio() >= changeRatio) {
-      return `style="zoom:1;"`
+    return `style="zoom:1;"`;
   }
   //height > width
   else {
-      return `style="zoom:1;"`
+    return `style="zoom:1;"`;
   }
 }
-function listHeight(){
-
+function listHeight() {
   let password_list = getElement("passwords_list");
-  if(password_list==null){
-    setTimeout(listHeight,100)
-    password_list.style.height=`100px`
-  }else{
-    let window_height=password_list.parentElement.offsetHeight
-    let list_top=password_list.offsetTop
-    let list_height=Math.abs(window_height-list_top)-50
-    password_list.style.height=`${list_height}px`
+  if (password_list == null) {
+    setTimeout(listHeight, 100);
+    password_list.style.height = `100px`;
+  } else {
+    let window_height = password_list.parentElement.offsetHeight;
+    let list_top = password_list.offsetTop;
+    let list_height = Math.abs(window_height - list_top) - 50;
+    password_list.style.height = `${list_height}px`;
   }
 }
-function backHomeBtnSize(){
+function backHomeBtnSize() {
   //width >= height
   if (PageWithHeightRatio() >= changeRatio) {
-      return `font-size:3em`
+    return `font-size:3em`;
   }
   //height > width
   else {
-      return `font-size:3em`
+    return `font-size:3em`;
   }
 }
-function startPage(){
-
-  let html=""
-  html+=`<button class="btn" style="${backHomeBtnSize()};left:0%;position: absolute;" onclick="goToInitialMenu()" >&lt;</button>`
-  html+=`<p style="${paragraphSize()};margin-bottom:10px">Master Password</p>`
-  html+=`<input ${inputStyle()} id="pass" type="password" placeholder="type master pass here">`
-  html+=`<p style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.2em":"1.2em"};margin:10px" >show password:<input ${checkboxStyle()} type="checkbox" onclick="showPassword('pass')"></p>`
-  html+=`<button style="${buttonSize()};margin:10px;" onclick="getList()">Get Passwords List</button><br>`
-  html+=`<p style="${paragraphSize()};margin:10px">Search</p>`
-  html+=`<input ${inputStyle()} type="text" oninput="list_DB_With_Search(this)" placeholder="search password"><br>`
-  html+=`<button style="${buttonSize()};margin-top:5px" onclick="addNewPass()">Add Password</button>`
-  html+=`<div id="passwords_list" style="overflow:auto;height:30px"  class="slider">`
-  html+=`<div class="pass_list">hdisusdn</div>`
-  html+=`<div class="pass_list">hdisusdn</div>`
-  html+=`</div>`
-  getElement("ManagePasswords").innerHTML=html
-  listHeight()
+function startPage() {
+  let html = "";
+  html += `<button class="btn" style="${backHomeBtnSize()};left:0%;position: absolute;" onclick="goToInitialMenu()" >&lt;</button>`;
+  html += `<p style="${paragraphSize()};margin-bottom:10px">Master Password</p>`;
+  html += `<input ${inputStyle()} id="pass" type="password" placeholder="type master pass here">`;
+  html += `<p style="font-size:${
+    PageWithHeightRatio() >= changeRatio ? "1.2em" : "1.2em"
+  };margin:10px" >show password:<input ${checkboxStyle()} type="checkbox" onclick="showPassword('pass')"></p>`;
+  html += `<button style="${buttonSize()};margin:10px;" onclick="getList()">Get Passwords List</button><br>`;
+  html += `<p style="${paragraphSize()};margin:10px">Search</p>`;
+  html += `<input ${inputStyle()} type="text" oninput="list_DB_With_Search(this)" placeholder="search password"><br>`;
+  html += `<button style="${buttonSize()};margin-top:5px" onclick="addNewPass()">Add Password</button>`;
+  html += `<div id="passwords_list" style="overflow:auto;height:30px"  class="slider">`;
+  html += `<div class="pass_list">hdisusdn</div>`;
+  html += `<div class="pass_list">hdisusdn</div>`;
+  html += `</div>`;
+  getElement("ManagePasswords").innerHTML = html;
+  listHeight();
 }
 function checkScreenRatio() {
-  if (prev_screen_ratio != PageWithHeightRatio() && modal==false) {
-      prev_screen_ratio=PageWithHeightRatio()
-      startPage()
-      getList()
-
+  if (prev_screen_ratio != PageWithHeightRatio() && modal == false) {
+    prev_screen_ratio = PageWithHeightRatio();
+    startPage();
+    getList();
   }
   //setTimeout(checkScreenRatio,350)
 }
 //Main----------
-let  prev_screen_ratio = PageWithHeightRatio()
-startPage()
-checkScreenRatio()
+let prev_screen_ratio = PageWithHeightRatio();
+startPage();
+checkScreenRatio();
 getList();
 //let manager_pass = getElement("pass");
 //let search = getElement("search password");
 //let password_list = getElement("passwords_list");
-
