@@ -18,7 +18,7 @@ function createListElement(row, id) {
 function listDB(db, filtered_ids = []) {
   let password_list = getElement("passwords_list");
   if (db.length == 0) {
-    password_list.innerHTML = `<p style="${paragraphSize()}">Empty or Wrong Password</p>`;
+    password_list.innerHTML = `<p style="${paragraphSize()}">No Passwords Stored or Wrong Password</p>`;
   } else {
     let html = "";
     if (filtered_ids.length == 0) {
@@ -34,7 +34,26 @@ function listDB(db, filtered_ids = []) {
     password_list.innerHTML = html;
   }
 }
-
+function success_btn(btn){
+  //btn.style["font-size"]="1em"
+  btn.style.color="lawngreen"
+  btn.style["border-color"]="aqua"
+  return btn
+}
+function fail_btn(btn){
+  //btn.style["font-size"]="1em"
+  btn.style.color="red"
+  btn.style["border-color"]="currentcolor"
+  return btn
+}
+function btn_message_success(success,msg,btn){
+  let prev_state=btn.outerHTML
+  if(success){
+    btn.innerHTML=msg
+    btn=success_btn(btn)
+    setTimeout(()=>{btn.outerHTML=prev_state},2000)
+  }else{
+  }
 function list_DB_With_Search(input) {
   let manager_pass = getElement("pass");
   let db = getDB(manager_pass.value);
@@ -89,10 +108,22 @@ function Edit(btn, id) {
         site: site.value,
         description: description.value,
         user: username.value,
-        pass: password.value,
-      };
-      updateDB(db_line, id, manager_pass.value);
-      getList();
+      
+      if(manager_pass.value==""){
+        btn_message_success(false,"Empty Pass!",btn)
+      }else{
+
+        let db_line = {
+          site: site.value,
+          description: description.value,
+          user: username.value,
+          pass: password.value,
+        };
+        updateDB(db_line, id, manager_pass.value);
+        btn.innerHTML = "Edit";
+        btn_message_success(true,"Success!",btn)
+        getList();
+      }
       // btn.setAttribute("onclick","showUserPass(this)")
     }
   }
@@ -118,6 +149,7 @@ function checkIfUserAndPassIsEmpty() {
     password.style.height = "auto";
     password.style.opacity = "100";
     password.style.border = "solid 1px white";
+    getElement("edit").innerHTML="Submit"
   }
 }
 function save(input, id) {
@@ -166,7 +198,7 @@ function show_password_info(show_data, id, edit = true) {
   };font-size:${
     PageWithHeightRatio() >= changeRatio ? "1.3em" : "1.3em"
   }" value="${show_data.pass}" placeholder="password"><br>`;
-  html += `<button style="font-size:${buttonSize()}" onclick="Edit(this,${id})">Edit</button>${
+  html += `<button id="edit" style="font-size:${buttonSize()}" onclick="Edit(this,${id})">Edit</button>${
     PageWithHeightRatio() >= changeRatio
       ? "&nbsp;&nbsp;"
       : "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
@@ -203,24 +235,29 @@ function passwordMenu(id) {
   body.appendChild(div);
 }
 
-function addNewPass() {
+function addNewPass(btn) {
   let manager_pass = getElement("pass");
-  let decrypt_db = getDB(manager_pass.value);
-  let div = document.createElement("div");
-  div.style.position = "absolute";
-  div.style.width = "100%";
-  div.style.top = "0px";
-  div.style.height = `${body.offsetHeight}`;
-  div.style.margin = "0px";
-  div.style.padding = "0px";
-  div.style.background = "#232323";
-  div.style.border = "solid white 2px";
-  div.style["z-index"] = "20";
-  div.innerHTML += show_password_info(emptyDbLine(), decrypt_db.length);
-  body.appendChild(div);
+  if(manager_pass.value==""){
+    btn_message_success(false,"Fill Password First!",btn)
+  } else{
 
-  //change Edit button to submit by finding in div children
-  checkIfUserAndPassIsEmpty();
+    let decrypt_db = getDB(manager_pass.value);
+    let div = document.createElement("div");
+    div.style.position = "absolute";
+    div.style.width = "100%";
+    div.style.top = "0px";
+    div.style.height = `${body.offsetHeight}`;
+    div.style.margin = "0px";
+    div.style.padding = "0px";
+    div.style.background = "#232323";
+    div.style.border = "solid white 2px";
+    div.style["z-index"] = "20";
+    div.innerHTML += show_password_info(emptyDbLine(), decrypt_db.length);
+    body.appendChild(div);
+    checkIfUserAndPassIsEmpty();
+    //change Edit button to submit by finding in div children
+  }
+
 }
 
 function paragraphSize() {
@@ -296,7 +333,7 @@ function startPage() {
   html += `<button style="${buttonSize()};margin:10px;" onclick="getList()">Get Passwords List</button><br>`;
   html += `<p style="${paragraphSize()};margin:10px">Search</p>`;
   html += `<input ${inputStyle()} type="text" oninput="list_DB_With_Search(this)" placeholder="search password"><br>`;
-  html += `<button style="${buttonSize()};margin-top:5px" onclick="addNewPass()">Add Password</button>`;
+  html += `<button style="${buttonSize()};margin-top:5px" onclick="addNewPass(this)">Add Password</button>`;
   html += `<div id="passwords_list" style="overflow:auto;height:30px"  class="slider">`;
   html += `<div class="pass_list">hdisusdn</div>`;
   html += `<div class="pass_list">hdisusdn</div>`;
@@ -317,6 +354,7 @@ let prev_screen_ratio = PageWithHeightRatio();
 startPage();
 checkScreenRatio();
 getList();
+signalInput(getElement("pass"),"red")
 //let manager_pass = getElement("pass");
 //let search = getElement("search password");
 //let password_list = getElement("passwords_list");

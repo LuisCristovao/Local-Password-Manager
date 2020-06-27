@@ -5,7 +5,7 @@ var time=0
 function createUL() {
     //width >= height
     if (PageWithHeightRatio() >= changeRatio) {
-        return `<ul style="padding:10%;">`
+        return `<ul style="padding:5%;">`
     }
     //height > width
     else {
