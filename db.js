@@ -1,7 +1,13 @@
 let columns = ["site", "user", "pass", "description"]
 let firms_to_trick_attackers=["Apple","Microsoft","Samsung Electronics","Alphabet","Google","AT&amp;T","Amazon","Verizon Communications","China Mobile","Walt Disney","Facebook","Alibaba","Intel","Softbank","IBM","Tencent Holdings","Nippon Telegraph &amp; Tel","Cisco Systems","Oracle","Deutsche Telekom","Taiwan Semiconductor"]
 
-
+function dbIsEmpty(){
+    if (localStorage["PM"]==null ||localStorage["PM"].trim()==""){
+        return true
+    }else{
+        return false
+    }
+}
 function getRandomValueFromArray(array){
     return array[Math.floor(Math.random() * array.length)]
 }

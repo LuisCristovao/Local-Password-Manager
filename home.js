@@ -2,6 +2,14 @@ const home_body = getElement("home_body")
 var prev_screen_ratio = PageWithHeightRatio()
 var time=0
 
+
+function Highlight(el){
+    el.style["text-decoration"]="underline"
+}
+function NotHighLight(el){
+    el.style["text-decoration"]=""
+}
+
 function createUL() {
     //width >= height
     if (PageWithHeightRatio() >= changeRatio) {
@@ -19,24 +27,18 @@ function createLi(text) {
     console.log(PageWithHeightRatio())
     //width >= height
     if (PageWithHeightRatio() >= changeRatio) {
-        return `<li style="padding-top:3%;font-size:3em;cursor:pointer" onclick="goToUrl('?${text.replace(/ /g, '-')}')">${text}</li>`
+        return `<li onmouseover="Highlight(this)" onmouseout="NotHighLight(this)" style="padding-top:3%;font-size:3em;cursor:pointer" onclick="goToUrl('?${text.replace(/ /g, '-')}')">${text}</li>`
     }
     //height > width
     else {
-        return `<li style="padding-top:15%;font-size:2em;cursor:pointer" onclick="goToUrl('?${text.replace(/ /g, '-')}')">${text}</li>`
+        return `<li onmouseover="Highlight(this)" onmouseout="NotHighLight(this)" style="padding-top:15%;font-size:2em;cursor:pointer" onclick="goToUrl('?${text.replace(/ /g, '-')}')">${text}</li>`
     }
 }
 
 function checkScreenRatio() {
     if (prev_screen_ratio != PageWithHeightRatio()) {
         prev_screen_ratio=PageWithHeightRatio()
-        var home_page = ""
-        home_page += createUL()
-        const menu = ["Manage Passwords", "Change Master Password", "Import Text Passwords", "Export Passwords"]
-        menu.forEach(el => {
-            home_page += createLi(el)
-        })
-        home_body.innerHTML = home_page
+        start_home()
     }
     setTimeout(checkScreenRatio,350)
 }
@@ -45,7 +47,12 @@ function start_home() {
 
     var home_page = ""
     home_page += createUL()
-    const menu = ["Manage Passwords", "Change Master Password", "Import Text Passwords", "Export Passwords"]
+    let menu=[]
+    if(dbIsEmpty()){
+        menu = ["Manage Passwords","Import Text Passwords"]
+    }else{
+        menu = ["Manage Passwords", "Change Master Password", "Import Text Passwords", "Export Passwords"]
+    }
     menu.forEach(el => {
         home_page += createLi(el)
     })

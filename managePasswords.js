@@ -53,7 +53,11 @@ function btn_message_success(success,msg,btn){
     btn=success_btn(btn)
     setTimeout(()=>{btn.outerHTML=prev_state},2000)
   }else{
+    btn.innerHTML=msg
+    btn=fail_btn(btn)
+    setTimeout(()=>{btn.outerHTML=prev_state},2000)
   }
+}
 function list_DB_With_Search(input) {
   let manager_pass = getElement("pass");
   let db = getDB(manager_pass.value);
@@ -79,7 +83,12 @@ function CloseMenu(btn) {
   parent.parentElement.removeChild(parent);
   modal = false;
 }
-
+function signalInput(input,color){
+  let size="medium"
+  setTimeout(()=>{input.style["border-color"]=color;input.style["border-width"]=size},300);
+  setTimeout(()=>input.style.border="",1000);setTimeout(()=>{input.style["border-color"]=color;input.style["border-width"]=size},1500);
+  setTimeout(()=>input.style.border="",2000)
+}
 function Edit(btn, id) {
   let manager_pass = getElement("pass");
   let username = document.getElementsByName("Username")[0];
@@ -103,11 +112,6 @@ function Edit(btn, id) {
       password.style.height = "0px";
       password.style.opacity = "0";
       password.style.border = "";
-      btn.innerHTML = "Edit";
-      let db_line = {
-        site: site.value,
-        description: description.value,
-        user: username.value,
       
       if(manager_pass.value==""){
         btn_message_success(false,"Empty Pass!",btn)
@@ -171,38 +175,38 @@ function save(input, id) {
 function show_password_info(show_data, id, edit = true) {
   modal = true;
   let html = `<button class="btn" style="${backHomeBtnSize()}" onclick="CloseMenu(this)" >&lt;</button>`;
-  html += `<div align="center" >`;
+  html += `<div align="center" style="${PageWithHeightRatio() >= changeRatio ? "margin-top:20px" : ""}">`;
   html += `<input  name="site" oninput="save(this,${id})" style="background:transparent;border:solid white 2px;color:white;font-size:${
-    PageWithHeightRatio() >= changeRatio ? "3em" : "1.5em"
+    PageWithHeightRatio() >= changeRatio ? "1.5em" : "1.5em"
   };width:${
     PageWithHeightRatio() >= changeRatio ? "50%" : "80%"
-  }" text-align="right" value="${
+  };" text-align="right" value="${
     show_data.site
-  }" placeholder="site/page ..."><br>`;
+  }" placeholder="site/page ..." ><br>`;
   html += `<textarea name="description" oninput="save(this,${id})" style="background:transparent;border:solid white 2px;color:white;font-size:${
-    PageWithHeightRatio() >= changeRatio ? "3em" : "1.5em"
+    PageWithHeightRatio() >= changeRatio ? "1.5em" : "1.5em"
   };width:${
     PageWithHeightRatio() >= changeRatio ? "50%" : "80%"
   };height:30%" text-align="right" placeholder="Description ..." >${
     show_data.description
   }</textarea><br>`;
-  html += `<button style="font-size:${buttonSize()};margin-top:20px" onclick="Copy(this.innerText,this)">Copy Username</button><br>`;
+  html += `<button style="${buttonSize()};margin-top:20px" onclick="Copy(this.innerText,this)">Copy Username</button><br>`;
   html += `<input name="Username" style="height:0px;color:white;background:transparent;border:none;opacity:0;margin:${
     PageWithHeightRatio() >= changeRatio ? "0px" : "10px"
   };font-size:${
     PageWithHeightRatio() >= changeRatio ? "1.3em" : "1.3em"
   }" value="${show_data.user}" placeholder="username"><br>`;
-  html += `<button style="font-size:${buttonSize()} margin-bottom:20px" onclick="Copy(this.innerText,this)">Copy Password</button><br>`;
+  html += `<button style="${buttonSize()} margin-bottom:20px" onclick="Copy(this.innerText,this)">Copy Password</button><br>`;
   html += `<input name="Password" style="height:0px;color:white;background:transparent;border:none;opacity:0;margin:${
     PageWithHeightRatio() >= changeRatio ? "0px" : "10px"
   };font-size:${
     PageWithHeightRatio() >= changeRatio ? "1.3em" : "1.3em"
   }" value="${show_data.pass}" placeholder="password"><br>`;
-  html += `<button id="edit" style="font-size:${buttonSize()}" onclick="Edit(this,${id})">Edit</button>${
+  html += `<button id="edit" style="${buttonSize()}" onclick="Edit(this,${id})">Edit</button>${
     PageWithHeightRatio() >= changeRatio
       ? "&nbsp;&nbsp;"
       : "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-  }<button style="font-size:${buttonSize()}" onclick="Delete(this,${id})">Delete</button>`;
+  }<button style="${buttonSize()}" onclick="Delete(this,${id})">Delete</button>`;
   html += "</div>";
 
   return html;
@@ -244,7 +248,7 @@ function addNewPass(btn) {
     let decrypt_db = getDB(manager_pass.value);
     let div = document.createElement("div");
     div.style.position = "absolute";
-    div.style.width = "100%";
+    div.style.width = "99.6%";
     div.style.top = "0px";
     div.style.height = `${body.offsetHeight}`;
     div.style.margin = "0px";
@@ -315,7 +319,7 @@ function listHeight() {
 function backHomeBtnSize() {
   //width >= height
   if (PageWithHeightRatio() >= changeRatio) {
-    return `font-size:3em`;
+    return `font-size:3em;position:absolute;top:0px;left:0px;`;
   }
   //height > width
   else {
