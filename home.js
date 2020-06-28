@@ -17,7 +17,7 @@ function createUL() {
     }
     //height > width
     else {
-        return `<ul style="padding:25%;">`
+        return `<ul style="padding:20%;">`
     }
 }
 function goToUrl(url){
