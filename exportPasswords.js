@@ -14,7 +14,7 @@ let export_btns_array=[
 function menuButtonsFontSize(){
     //width >= height
     if (PageWithHeightRatio() >= changeRatio) {
-        return `3em`
+        return `2em`
     }
     //height > width
     else {
