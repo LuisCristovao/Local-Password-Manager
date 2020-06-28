@@ -71,7 +71,7 @@ function list_DB_With_Search(input) {
 function getList() {
   let manager_pass = getElement("pass");
   let password_list = getElement("passwords_list");
-  if (manager_pass.value == "") {
+  if (manager_pass.value == "" && dbIsEmpty()) {
     password_list.innerHTML = `<p style="${paragraphSize()}">No password inserted!</p>`;
   } else {
     let db = getDB(manager_pass.value);
