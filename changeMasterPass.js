@@ -89,7 +89,7 @@ function startPage(){
 
     let html=""
     html+=`<button class="btn" style="font-size: ${(PageWithHeightRatio() >= changeRatio)?"3em":"3em"};left:0%;position: absolute;" onclick="goToInitialMenu()" >&lt;</button>`
-    html+=`<p style="${paragraphSize()};${(PageWithHeightRatio() >= changeRatio)?"margin-top:10%":"margin-top:20%"}">Old Password:</p><input ${inputStyle()} type="password" id="old_master_password"><p ${showPassStyle()}>show password:<input ${checkboxStyle()} type="checkbox" onclick="showPassword('old_master_password')"></p>`
+    html+=`<p style="${paragraphSize()};${(PageWithHeightRatio() >= changeRatio)?"margin-top:10px":"margin-top:20%"}">Old Password:</p><input ${inputStyle()} type="password" id="old_master_password"><p ${showPassStyle()}>show password:<input ${checkboxStyle()} type="checkbox" onclick="showPassword('old_master_password')"></p>`
     html+=`<div style="background:#cdcdcd;width:${(PageWithHeightRatio() >= changeRatio)?"60%":"95%"};height:1px"></div>`
     html+=`<p style="${paragraphSize()}">New Password:</p><input ${inputStyle()} type="password" id="new_master_password"><p ${showPassStyle()}>show password:<input ${checkboxStyle()} type="checkbox" onclick="showPassword('new_master_password')"></p>`
     html+=`<div style="background:#cdcdcd;width:${(PageWithHeightRatio() >= changeRatio)?"60%":"95%"};height:1px"></div>`
