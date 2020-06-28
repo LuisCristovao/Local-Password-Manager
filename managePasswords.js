@@ -76,12 +76,19 @@ function getList() {
   } else {
     let db = getDB(manager_pass.value);
     listDB(db);
+    listHeight();
   }
 }
 function CloseMenu(btn) {
   let parent = btn.parentElement;
   parent.parentElement.removeChild(parent);
   modal = false;
+  if(!dbIsEmpty()){
+    let pass=getElement("pass").value
+    startPage()
+    getElement("pass").value=pass
+    getList()
+  }
 }
 function signalInput(input,color){
   let size="medium"
@@ -244,7 +251,6 @@ function addNewPass(btn) {
   if(manager_pass.value==""){
     btn_message_success(false,"Fill Password First!",btn)
   } else{
-
     let decrypt_db = getDB(manager_pass.value);
     let div = document.createElement("div");
     div.style.position = "absolute";
@@ -259,6 +265,7 @@ function addNewPass(btn) {
     div.innerHTML += show_password_info(emptyDbLine(), decrypt_db.length);
     body.appendChild(div);
     checkIfUserAndPassIsEmpty();
+
     //change Edit button to submit by finding in div children
   }
 
@@ -326,30 +333,60 @@ function backHomeBtnSize() {
     return `font-size:3em`;
   }
 }
+function initialTutorial(input){
+  if(input.value!=""){
+    
+    let html = "";
+    html += `<button style="${buttonSize()};margin-top:5px" onclick="addNewPass(this)">Add Password</button>`;
+    html += `<div id="passwords_list" style="overflow:auto;height:30px"  class="slider">`;
+    html += `<div class="pass_list">hdisusdn</div>`;
+    html += `<div class="pass_list">hdisusdn</div>`;
+    html += `</div>`;
+    getElement("ManagePasswords").innerHTML += html;
+    setTimeout(getList,200);
+    getElement("pass").setAttribute("oninput","")
+    getElement("pass").value=input.value
+    getElement("pass").focus()
+  }else{
+    startPage()
+  }
+}
 function startPage() {
-  let html = "";
-  html += `<button class="btn" style="${backHomeBtnSize()};left:0%;position: absolute;" onclick="goToInitialMenu()" >&lt;</button>`;
-  html += `<p style="${paragraphSize()};margin-bottom:10px">Master Password</p>`;
-  html += `<input ${inputStyle()} id="pass" type="password" placeholder="type master pass here">`;
-  html += `<p style="font-size:${
-    PageWithHeightRatio() >= changeRatio ? "1.2em" : "1.2em"
-  };margin:10px" >show password:<input ${checkboxStyle()} type="checkbox" onclick="showPassword('pass')"></p>`;
-  html += `<button style="${buttonSize()};margin:10px;" onclick="getList()">Get Passwords List</button><br>`;
-  html += `<p style="${paragraphSize()};margin:10px">Search</p>`;
-  html += `<input ${inputStyle()} type="text" oninput="list_DB_With_Search(this)" placeholder="search password"><br>`;
-  html += `<button style="${buttonSize()};margin-top:5px" onclick="addNewPass(this)">Add Password</button>`;
-  html += `<div id="passwords_list" style="overflow:auto;height:30px"  class="slider">`;
-  html += `<div class="pass_list">hdisusdn</div>`;
-  html += `<div class="pass_list">hdisusdn</div>`;
-  html += `</div>`;
-  getElement("ManagePasswords").innerHTML = html;
-  listHeight();
+  if(dbIsEmpty()){
+    let html = "";
+    html += `<button class="btn"  style="${backHomeBtnSize()};left:0%;position: absolute;" onclick="goToInitialMenu()" >&lt;</button>`;
+    html += `<p style="${paragraphSize()};margin-bottom:10px">Master Password</p>`;
+    html += `<input ${inputStyle()} oninput="initialTutorial(this)" id="pass" type="password" placeholder="type master pass here">`;
+    html += `<p style="font-size:${
+      PageWithHeightRatio() >= changeRatio ? "1.2em" : "1.2em"
+    };margin:10px" >show password:<input ${checkboxStyle()} type="checkbox" onclick="showPassword('pass')"></p>`;
+    getElement("ManagePasswords").innerHTML = html;
+  }else{
+    let html = "";
+    html += `<button class="btn" style="${backHomeBtnSize()};left:0%;position: absolute;" onclick="goToInitialMenu()" >&lt;</button>`;
+    html += `<p style="${paragraphSize()};margin-bottom:10px">Master Password</p>`;
+    html += `<input ${inputStyle()} oninput="getList()" id="pass" type="password" placeholder="type master pass here">`;
+    html += `<p style="font-size:${
+      PageWithHeightRatio() >= changeRatio ? "1.2em" : "1.2em"
+    };margin:10px" >show password:<input ${checkboxStyle()} type="checkbox" onclick="showPassword('pass')"></p>`;
+    //html += `<button style="${buttonSize()};margin:10px;" onclick="getList()">Get Passwords List</button><br>`;
+    html += `<p style="${paragraphSize()};margin:10px">Search</p>`;
+    html += `<input ${inputStyle()}  type="text" oninput="list_DB_With_Search(this)" placeholder="search password"><br>`;
+    html += `<button style="${buttonSize()};margin-top:5px" onclick="addNewPass(this)">Add Password</button>`;
+    html += `<div id="passwords_list" style="overflow:auto;height:30px"  class="slider">`;
+    html += `<div class="pass_list">hdisusdn</div>`;
+    html += `<div class="pass_list">hdisusdn</div>`;
+    html += `</div>`;
+    getElement("ManagePasswords").innerHTML = html;
+    getList();
+    
+  }
 }
 function checkScreenRatio() {
   if (prev_screen_ratio != PageWithHeightRatio() && modal == false) {
     prev_screen_ratio = PageWithHeightRatio();
     startPage();
-    getList();
+    //getList();
   }
   //setTimeout(checkScreenRatio,350)
 }
@@ -357,7 +394,7 @@ function checkScreenRatio() {
 let prev_screen_ratio = PageWithHeightRatio();
 startPage();
 checkScreenRatio();
-getList();
+//getList();
 signalInput(getElement("pass"),"red")
 //let manager_pass = getElement("pass");
 //let search = getElement("search password");
