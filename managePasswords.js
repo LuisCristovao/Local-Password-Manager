@@ -11,7 +11,7 @@ function createListElement(row, id) {
   };margin:10px">${row.description}</p>`;
   html += `<button style="font-size:${
     PageWithHeightRatio() >= changeRatio ? "1.8em" : "1.8em"
-  }" onclick="passwordMenu(${id})">Open</button>`;
+  }" onclick="passwordMenu(${id},this)">Open</button>`;
   html += `</div>`;
   return html;
 }
@@ -228,22 +228,32 @@ function Copy(user_pass, btn) {
     btn.innerHTML = user_pass;
   }, 1000);
 }
-function passwordMenu(id) {
+function passwordMenu(id,btn) {
   let manager_pass = getElement("pass");
-  let decrypt_db = getDB(manager_pass.value);
-  let db_line = decrypt_db[id];
-  let div = document.createElement("div");
-  div.style.position = "absolute";
-  div.style.width = "99.6%";
-  div.style.top = "0px";
-  div.style.height = `${body.offsetHeight}`;
-  div.style.margin = "0px";
-  div.style.padding = "0px";
-  div.style.background = "#232323";
-  div.style.border = "solid white 2px";
-  div.style["z-index"] = "20";
-  div.innerHTML += show_password_info(db_line, id);
-  body.appendChild(div);
+  if(manager_pass.value==""){
+    btn_message_success(false,"Fill Password First!",btn)
+  } else{
+    if(manager_pass.getAttribute("focus")=="true"){
+      manager_pass.blur()
+      setTimeout(()=>passwordMenu(id),500)
+    }else{
+
+      let decrypt_db = getDB(manager_pass.value);
+      let db_line = decrypt_db[id];
+      let div = document.createElement("div");
+      div.style.position = "absolute";
+      div.style.width = "99.6%";
+      div.style.top = "0px";
+      div.style.height = `${body.offsetHeight}`;
+      div.style.margin = "0px";
+      div.style.padding = "0px";
+      div.style.background = "#232323";
+      div.style.border = "solid white 2px";
+      div.style["z-index"] = "20";
+      div.innerHTML += show_password_info(db_line, id);
+      body.appendChild(div);
+    }
+  }
 }
 
 function addNewPass(btn) {
@@ -251,20 +261,26 @@ function addNewPass(btn) {
   if(manager_pass.value==""){
     btn_message_success(false,"Fill Password First!",btn)
   } else{
-    let decrypt_db = getDB(manager_pass.value);
-    let div = document.createElement("div");
-    div.style.position = "absolute";
-    div.style.width = "99.6%";
-    div.style.top = "0px";
-    div.style.height = `${body.offsetHeight}`;
-    div.style.margin = "0px";
-    div.style.padding = "0px";
-    div.style.background = "#232323";
-    div.style.border = "solid white 2px";
-    div.style["z-index"] = "20";
-    div.innerHTML += show_password_info(emptyDbLine(), decrypt_db.length);
-    body.appendChild(div);
-    checkIfUserAndPassIsEmpty();
+    if(manager_pass.getAttribute("focus")=="true"){
+      manager_pass.blur()
+      setTimeout(()=>addNewPass(btn),500)
+    }else{
+
+      let decrypt_db = getDB(manager_pass.value);
+      let div = document.createElement("div");
+      div.style.position = "absolute";
+      div.style.width = "99.6%";
+      div.style.top = "0px";
+      div.style.height = `${body.offsetHeight}`;
+      div.style.margin = "0px";
+      div.style.padding = "0px";
+      div.style.background = "#232323";
+      div.style.border = "solid white 2px";
+      div.style["z-index"] = "20";
+      div.innerHTML += show_password_info(emptyDbLine(), decrypt_db.length);
+      body.appendChild(div);
+      checkIfUserAndPassIsEmpty();
+    }
 
     //change Edit button to submit by finding in div children
   }
@@ -356,7 +372,7 @@ function startPage() {
     let html = "";
     html += `<button class="btn"  style="${backHomeBtnSize()};left:0%;position: absolute;" onclick="goToInitialMenu()" >&lt;</button>`;
     html += `<p style="${paragraphSize()};margin-bottom:10px">Master Password</p>`;
-    html += `<input ${inputStyle()} oninput="initialTutorial(this)" id="pass" type="password" placeholder="type master pass here">`;
+    html += `<input ${inputStyle()}  onfocus="setTimeout(()=>{this.setAttribute('focus','true')},10)" onblur="setTimeout(()=>this.setAttribute('focus','false'),10)" oninput="initialTutorial(this)" id="pass" type="password" placeholder="type master pass here">`;
     html += `<p style="font-size:${
       PageWithHeightRatio() >= changeRatio ? "1.2em" : "1.2em"
     };margin:10px" >show password:<input ${checkboxStyle()} type="checkbox" onclick="showPassword('pass')"></p>`;
@@ -365,7 +381,7 @@ function startPage() {
     let html = "";
     html += `<button class="btn" style="${backHomeBtnSize()};left:0%;position: absolute;" onclick="goToInitialMenu()" >&lt;</button>`;
     html += `<p style="${paragraphSize()};margin-bottom:10px">Master Password</p>`;
-    html += `<input ${inputStyle()} oninput="getList()" id="pass" type="password" placeholder="type master pass here">`;
+    html += `<input ${inputStyle()} onfocus="setTimeout(()=>{this.setAttribute('focus','true')},500)" onblur="setTimeout(()=>this.setAttribute('focus','false'),500)" oninput="getList()" id="pass" type="password" placeholder="type master pass here">`;
     html += `<p style="font-size:${
       PageWithHeightRatio() >= changeRatio ? "1.2em" : "1.2em"
     };margin:10px" >show password:<input ${checkboxStyle()} type="checkbox" onclick="showPassword('pass')"></p>`;
