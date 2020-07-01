@@ -241,7 +241,7 @@ function passwordMenu(id,btn) {
       div.style.position = "absolute";
       div.style.width = "99.6%";
       div.style.top = "0px";
-      div.style.height = `100%`;
+      div.style.height = `${body.offsetHeight}`;
       div.style.margin = "0px";
       div.style.padding = "0px";
       div.style.background = "#232323";
@@ -266,7 +266,7 @@ function addNewPass(btn) {
       div.style.width = "99.6%";
       div.style.top = "0px";
       
-      div.style.height = `100%`;
+      div.style.height = `${body.offsetHeight}`;
       div.style.margin = "0px";
       div.style.padding = "0px";
       div.style.background = "#232323";
