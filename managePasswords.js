@@ -76,7 +76,7 @@ function getList() {
   } else {
     let db = getDB(manager_pass.value);
     listDB(db);
-    listHeight();
+    listHeight()
   }
 }
 function CloseMenu(btn) {
@@ -87,7 +87,7 @@ function CloseMenu(btn) {
     let pass=getElement("pass").value
     startPage()
     getElement("pass").value=pass
-    getList()
+    setTimeout(getList,500)
   }
 }
 function signalInput(input,color){
@@ -233,10 +233,7 @@ function passwordMenu(id,btn) {
   if(manager_pass.value==""){
     btn_message_success(false,"Fill Password First!",btn)
   } else{
-    if(manager_pass.getAttribute("focus")=="true"){
-      manager_pass.blur()
-      setTimeout(()=>passwordMenu(id),500)
-    }else{
+    
 
       let decrypt_db = getDB(manager_pass.value);
       let db_line = decrypt_db[id];
@@ -244,7 +241,7 @@ function passwordMenu(id,btn) {
       div.style.position = "absolute";
       div.style.width = "99.6%";
       div.style.top = "0px";
-      div.style.height = `${body.offsetHeight}`;
+      div.style.height = `100%`;
       div.style.margin = "0px";
       div.style.padding = "0px";
       div.style.background = "#232323";
@@ -253,7 +250,7 @@ function passwordMenu(id,btn) {
       div.innerHTML += show_password_info(db_line, id);
       body.appendChild(div);
     }
-  }
+  
 }
 
 function addNewPass(btn) {
@@ -261,17 +258,15 @@ function addNewPass(btn) {
   if(manager_pass.value==""){
     btn_message_success(false,"Fill Password First!",btn)
   } else{
-    if(manager_pass.getAttribute("focus")=="true"){
-      manager_pass.blur()
-      setTimeout(()=>addNewPass(btn),500)
-    }else{
+    
 
       let decrypt_db = getDB(manager_pass.value);
       let div = document.createElement("div");
       div.style.position = "absolute";
       div.style.width = "99.6%";
       div.style.top = "0px";
-      div.style.height = `${body.offsetHeight}`;
+      
+      div.style.height = `100%`;
       div.style.margin = "0px";
       div.style.padding = "0px";
       div.style.background = "#232323";
@@ -280,9 +275,9 @@ function addNewPass(btn) {
       div.innerHTML += show_password_info(emptyDbLine(), decrypt_db.length);
       body.appendChild(div);
       checkIfUserAndPassIsEmpty();
-    }
+    
 
-    //change Edit button to submit by finding in div children
+    
   }
 
 }
