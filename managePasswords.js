@@ -1,4 +1,5 @@
 let modal = false;
+let initial_body_height=body.offsetHeight;
 //manager_pass.setAttribute("oninput","getList()")
 function createListElement(row, id) {
   let html = "";
@@ -83,12 +84,12 @@ function CloseMenu(btn) {
   let parent = btn.parentElement;
   parent.parentElement.removeChild(parent);
   modal = false;
-  if(!dbIsEmpty()){
+  /*if(!dbIsEmpty()){
     let pass=getElement("pass").value
     startPage()
     getElement("pass").value=pass
     setTimeout(getList,500)
-  }
+  }*/
 }
 function signalInput(input,color){
   let size="medium"
@@ -241,7 +242,7 @@ function passwordMenu(id,btn) {
       div.style.position = "absolute";
       div.style.width = "99.6%";
       div.style.top = "0px";
-      div.style.height = `${body.offsetHeight}`;
+      div.style.height = `${initial_body_height}`;
       div.style.margin = "0px";
       div.style.padding = "0px";
       div.style.background = "#232323";
@@ -266,7 +267,7 @@ function addNewPass(btn) {
       div.style.width = "99.6%";
       div.style.top = "0px";
       
-      div.style.height = `${body.offsetHeight}`;
+      div.style.height = `${initial_body_height}`;
       div.style.margin = "0px";
       div.style.padding = "0px";
       div.style.background = "#232323";
@@ -328,7 +329,7 @@ function listHeight() {
     setTimeout(listHeight, 100);
     password_list.style.height = `100px`;
   } else {
-    let window_height = password_list.parentElement.offsetHeight;
+    let window_height = initial_body_height;
     let list_top = password_list.offsetTop;
     let list_height = Math.abs(window_height - list_top) - 50;
     password_list.style.height = `${list_height}px`;
@@ -410,3 +411,9 @@ signalInput(getElement("pass"),"red")
 //let manager_pass = getElement("pass");
 //let search = getElement("search password");
 //let password_list = getElement("passwords_list");
+/* setTimeout(() => {
+  Array.from(getElement("ManagePasswords").children).filter(el=>el.innerText=="Master Password")[0].setAttribute("id","yyy")
+}, 500);
+setInterval(() => {
+  getElement("yyy").innerHTML=window.innerHeight
+}, 100); */
