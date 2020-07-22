@@ -64,6 +64,7 @@ function init() {
     } else {
         defaultPage()
     }
+    
 }
 //main----
 
