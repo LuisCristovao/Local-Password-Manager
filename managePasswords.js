@@ -80,7 +80,8 @@ function getList() {
     listHeight()
   }
 }
-function CloseMenu(btn) {
+function CloseMenu(btn,id) {
+  save(id)// save changes made in password edit mode
   let parent = btn.parentElement;
   parent.parentElement.removeChild(parent);
   modal = false;
@@ -164,7 +165,7 @@ function checkIfUserAndPassIsEmpty() {
     getElement("edit").innerHTML="Submit"
   }
 }
-function save(input, id) {
+function save(id) {
   let manager_pass = getElement("pass");
   let username = document.getElementsByName("Username")[0];
   let password = document.getElementsByName("Password")[0];
@@ -182,16 +183,16 @@ function save(input, id) {
 
 function show_password_info(show_data, id, edit = true) {
   modal = true;
-  let html = `<button class="btn" style="${backHomeBtnSize()}" onclick="CloseMenu(this)" >&lt;</button>`;
+  let html = `<button class="btn" style="${backHomeBtnSize()}" onclick="CloseMenu(this,${id})" >&lt;</button>`;
   html += `<div align="center" style="${PageWithHeightRatio() >= changeRatio ? "margin-top:20px" : ""}">`;
-  html += `<input  name="site" oninput="save(this,${id})" style="background:transparent;border:solid white 2px;color:white;font-size:${
+  html += `<input  name="site"  style="background:transparent;border:solid white 2px;color:white;font-size:${
     PageWithHeightRatio() >= changeRatio ? "1.5em" : "1.5em"
   };width:${
     PageWithHeightRatio() >= changeRatio ? "50%" : "80%"
   };" text-align="right" value="${
     show_data.site
   }" placeholder="site/page ..." ><br>`;
-  html += `<textarea name="description" oninput="save(this,${id})" style="background:transparent;border:solid white 2px;color:white;font-size:${
+  html += `<textarea name="description"  style="background:transparent;border:solid white 2px;color:white;font-size:${
     PageWithHeightRatio() >= changeRatio ? "1.5em" : "1.5em"
   };width:${
     PageWithHeightRatio() >= changeRatio ? "50%" : "80%"
