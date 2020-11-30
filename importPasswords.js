@@ -61,7 +61,8 @@ function ImportEncryptedDB(){
     let html=`<button class="btn" style="font-size: ${backHomeBtnSize()};left:0%;position: absolute;margin:1%" onclick="window.location.reload()" >&lt;</button>`
     html+=`<p style="${paragraphSize()}">Insert Encrypted DB below:</p>`
     html+=`<textarea style="${textareaSize()}"></textarea><br>`
-    html+=`<button style="font-size:${menuButtonsFontSize()}" onclick="ImportEncrypted(this)">Import</button>`
+    html+=`<button style="font-size:${menuButtonsFontSize()}" onclick="ImportEncrypted(this,false)">Import</button>`
+    html+=`<button style="font-size:${menuButtonsFontSize()}" onclick="ImportEncrypted(this,true)">Append</button>`
     getElement("importPasswords").innerHTML=html
 }
 function ImportDecryptedCSV(){
@@ -174,15 +175,29 @@ function Import(btn) {
         }
     }
 }
-function ImportEncrypted(btn){
+function ImportEncrypted(btn,append){
     let prev_state=btn.outerHTML
 
     let edb=document.getElementsByTagName("textarea")[0]
-    writeDB(edb.value)
-    edb.value="Imported with success!"
-    btn=success_btn(btn)
-    btn.innerHTML="Success!"
-    setTimeout(()=>{btn.outerHTML=prev_state},2000)
+    //if import overwrite
+    if(!append){
+        if(!dbIsEmpty()){
+            if (confirm("This will overwrite previouse data. Are you sure you want to continue?")){
+                writeDB(edb.value,append)            
+            }else{
+                edb.value="Cancel by user!"
+                btn=fail_btn(btn)
+                btn.innerHTML="Cancel!"
+                setTimeout(()=>{btn.outerHTML=prev_state},2000)
+            }
+        }
+    }else{
+        writeDB(edb.value,append)
+        edb.value="Imported with success!"
+        btn=success_btn(btn)
+        btn.innerHTML="Success!"
+        setTimeout(()=>{btn.outerHTML=prev_state},2000)
+    }
 }
 function checkScreenRatio() {
     if (prev_screen_ratio != PageWithHeightRatio()) {
