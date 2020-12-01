@@ -152,9 +152,16 @@ function Delete(btn, id) {
     parent2.parentElement.removeChild(parent2);
   }
 }
+function randomPassEvent(input){
+  if (input.target.value.search(/random\([0-9]+\)/i)!=-1){
+    let length=parseInt(input.target.value.replace(/\D/g,''))
+    input.target.value=RandomPass(length)
+  }
+}
 function checkIfUserAndPassIsEmpty() {
   let username = document.getElementsByName("Username")[0];
   let password = document.getElementsByName("Password")[0];
+  
   if (username.value == "" && password.value == "") {
     username.style.height = "auto";
     username.style.opacity = "100";
@@ -218,6 +225,10 @@ function show_password_info(show_data, id, edit = true) {
   }<button style="${buttonSize()}" onclick="Delete(this,${id})">Delete</button>`;
   html += "</div>";
 
+  setTimeout(()=>{
+    let password = document.getElementsByName("Password")[0];
+    password.addEventListener("input",randomPassEvent)
+  },300)
   return html;
 }
 
