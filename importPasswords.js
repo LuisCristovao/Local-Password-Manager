@@ -75,7 +75,8 @@ function ImportDecryptedCSV(){
     html+=`facebook,user1,12345,facebook password example\n`
     html+=`google,user2,1223,google password example description\n`
     html+=`</textarea><br>`
-    html+=`<button style="font-size:${(PageWithHeightRatio() >= changeRatio)?"2em":"2em"}" onclick="Import(this)">Import</button>`
+    html+=`<button style="font-size:${(PageWithHeightRatio() >= changeRatio)?"2em":"2em"}" onclick="Import(this,false)">Import</button>`
+    html+=`<button style="font-size:${(PageWithHeightRatio() >= changeRatio)?"2em":"2em"}" onclick="Import(this,true)">Append</button>`
     getElement("importPasswords").innerHTML=html
 }
 function ImportFromOld(){
@@ -89,7 +90,8 @@ function ImportFromOld(){
     html+=`1\tfacebook\tuser1\t12345\n`
     html+=`2\tgoole\tuser2\t1223\n`
     html+=`</textarea><br>`
-    html+=`<button style="font-size:${(PageWithHeightRatio() >= changeRatio)?"2em":"1.5em"}" onclick="oldImport(this)">Old Import</button>`
+    html+=`<button style="font-size:${(PageWithHeightRatio() >= changeRatio)?"2em":"1.5em"}" onclick="oldImport(this,false)">Old Import</button>`
+    html+=`<button style="font-size:${(PageWithHeightRatio() >= changeRatio)?"2em":"1.5em"}" onclick="oldImport(this,true)">Append</button>`
     // html+=`<p>Insert text Passwords like |id|site|user|password| in textarea.</p>`
     // html+=`<p>Each line must be a new site password.</p><br>`
     // html+=`<p><b>Only use this option if you used application on...</b></p><br>`
@@ -98,7 +100,7 @@ function ImportFromOld(){
     // html+=`<button onclick="oldImport()">Old Import</button>`
     getElement("importPasswords").innerHTML=html
 }
-function oldImport(btn){
+function oldImport(btn,append){
     let password_import = getElement("password_import")
     let prev_state=btn.outerHTML
     if(password_import.value==""){
@@ -124,11 +126,48 @@ function oldImport(btn){
             setTimeout(()=>{btn.outerHTML=prev_state},2000)
             data.value = "Something got wrong try to export again from previous app."
         }else{
-            btn=success_btn(btn)
-            btn.innerHTML="Success!"
-            setTimeout(()=>{btn.outerHTML=prev_state},2000)
-            csvToDB(filtered_data,password_import.value,"\t")
-            data.value = "Imported passwords and encrypted them!"
+            if(dbIsEmpty() || append==true){
+
+                if(!csvToDB(filtered_data,password_import.value,"\t",append)){
+                    data.value = "Error reading data, check if the information inserted is similar to the initial example."
+                    btn=fail_btn(btn)
+                    btn.innerHTML="Import Error"
+                    setTimeout(()=>{btn.outerHTML=prev_state},2000)
+                }else{
+                    btn=success_btn(btn)
+                    btn.innerHTML="Success!"
+                    setTimeout(()=>{btn.outerHTML=prev_state},2000)
+                    data.value = "Imported passwords and encrypted them!"
+                }
+            }else{
+                if (confirm("This will overwrite previouse data. Are you sure you want to continue?")){
+                    if(!csvToDB(filtered_data,password_import.value,"\t",append)){
+                        data.value = "Error reading data, check if the information inserted is similar to the initial example."
+                        btn=fail_btn(btn)
+                        btn.innerHTML="Import Error"
+                        setTimeout(()=>{btn.outerHTML=prev_state},2000)
+                    }else{
+                        btn=success_btn(btn)
+                        btn.innerHTML="Success!"
+                        setTimeout(()=>{btn.outerHTML=prev_state},2000)
+                        data.value = "Imported passwords and encrypted them!"
+                    }
+                }else{
+                    data.value = "Cancel by user."
+                    btn=fail_btn(btn)
+                    btn.innerHTML="Cancel"
+                    setTimeout(()=>{btn.outerHTML=prev_state},2000)
+                }
+            }
+
+
+
+            // btn=success_btn(btn)
+            // btn.innerHTML="Success!"
+            // setTimeout(()=>{btn.outerHTML=prev_state},2000)
+
+            // csvToDB(filtered_data,password_import.value,"\t")
+            // data.value = "Imported passwords and encrypted them!"
         }
     }
 }
@@ -144,7 +183,7 @@ function fail_btn(btn){
     btn.style["border-color"]="currentcolor"
     return btn
 }
-function Import(btn) {
+function Import(btn,append) {
     let prev_state=btn.outerHTML
     let password_import = getElement("password_import")
     if(password_import.value==""){
@@ -161,16 +200,38 @@ function Import(btn) {
             setTimeout(()=>{btn.outerHTML=prev_state},2000)
             data.value="Empty split character"
         }else{
-            if(!csvToDB(data.value,password_import.value,split_data_character.value)){
-                data.value = "Error reading data, check if the information inserted is similar to the initial example."
-                btn=fail_btn(btn)
-                btn.innerHTML="Import Error"
-                setTimeout(()=>{btn.outerHTML=prev_state},2000)
+            if(dbIsEmpty() || append==true){
+
+                if(!csvToDB(data.value,password_import.value,split_data_character.value,append)){
+                    data.value = "Error reading data, check if the information inserted is similar to the initial example."
+                    btn=fail_btn(btn)
+                    btn.innerHTML="Import Error"
+                    setTimeout(()=>{btn.outerHTML=prev_state},2000)
+                }else{
+                    btn=success_btn(btn)
+                    btn.innerHTML="Success!"
+                    setTimeout(()=>{btn.outerHTML=prev_state},2000)
+                    data.value = "Imported passwords and encrypted them!"
+                }
             }else{
-                btn=success_btn(btn)
-                btn.innerHTML="Success!"
-                setTimeout(()=>{btn.outerHTML=prev_state},2000)
-                data.value = "Imported passwords and encrypted them!"
+                if (confirm("This will overwrite previouse data. Are you sure you want to continue?")){
+                    if(!csvToDB(data.value,password_import.value,split_data_character.value,append)){
+                        data.value = "Error reading data, check if the information inserted is similar to the initial example."
+                        btn=fail_btn(btn)
+                        btn.innerHTML="Import Error"
+                        setTimeout(()=>{btn.outerHTML=prev_state},2000)
+                    }else{
+                        btn=success_btn(btn)
+                        btn.innerHTML="Success!"
+                        setTimeout(()=>{btn.outerHTML=prev_state},2000)
+                        data.value = "Imported passwords and encrypted them!"
+                    }
+                }else{
+                    data.value = "Cancel by user."
+                    btn=fail_btn(btn)
+                    btn.innerHTML="Cancel"
+                    setTimeout(()=>{btn.outerHTML=prev_state},2000)
+                }
             }
         }
     }

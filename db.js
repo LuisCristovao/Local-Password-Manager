@@ -100,8 +100,11 @@ function EncryptDB(db, pass_value) {
   });
   localStorage["PM"] = new_db.reduce((acc, n) => acc + "\n" + n);
 }
-function csvToDB(data, pass_value, split_data_character) {
+function csvToDB(data, pass_value, split_data_character,append) {
   let db = [];
+  if(append){
+    data+=dbToCsv(pass_value)[0].replaceAll("\t",split_data_character)
+  }
   let db_line = {};
   data.split("\n").forEach((row, id) => {
     if (row == "") {
