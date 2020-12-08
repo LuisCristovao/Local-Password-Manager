@@ -18,18 +18,30 @@ function findBestMatchs(db,search_word){
         
         db.forEach((el,id) => {
             let row_similarity_index=0
+            let site_array=el.site.split(" ")
+            let search_words_array=search_word.split(" ")
+            site_array.forEach(site=>{
+                search_words_array.forEach(search_word_el=>{
+                    let similarity=supercompare(search_word_el.toLocaleLowerCase(),site.toLocaleLowerCase())
+                    if(similarity>=similarity_index){
+                        row_similarity_index+=similarity
+                    }
+                })
+            })
             
-            let similarity=supercompare(search_word.toLocaleLowerCase(),el.site.toLocaleLowerCase())
-            if(similarity>=similarity_index){
-                row_similarity_index+=similarity
-            }
-            
-            similarity=supercompare(search_word.toLocaleLowerCase(),el.description.toLocaleLowerCase())
-            if(similarity>=similarity_index){
-                row_similarity_index+=similarity
-            }
+            let desc_array=el.description.split(" ")
+            desc_array.forEach(description=>{
+                search_words_array.forEach(search_word_el=>{
+
+                    let similarity=supercompare(search_word_el.toLocaleLowerCase(),description.toLocaleLowerCase())
+                    if(similarity>=similarity_index){
+                        row_similarity_index+=similarity
+                    }
+                })
+            })
             
             if(row_similarity_index>0){
+                //check if already push this id into filtered_db
                 if(!findInArray(id,filtered_db.map(el=>el[0]))){
 
                     filtered_db.push([id,row_similarity_index])

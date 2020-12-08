@@ -224,7 +224,7 @@ function show_password_info(show_data, id, edit = true) {
       : "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
   }<button style="${buttonSize()}" onclick="Delete(this,${id})">Delete</button>`;
   html += "</div>";
-
+  // add event listner to modal password input
   setTimeout(()=>{
     let password = document.getElementsByName("Password")[0];
     password.addEventListener("input",randomPassEvent)
