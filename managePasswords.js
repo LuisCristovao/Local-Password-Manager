@@ -76,7 +76,8 @@ function getList() {
     password_list.innerHTML = `<p style="${paragraphSize()}">No password inserted!</p>`;
   } else {
     let db = getDB(manager_pass.value);
-    listDB(db);
+    //listDB(db);
+    list_DB_With_Search(getElement("search_manage"))
     listHeight()
   }
 }
@@ -395,7 +396,7 @@ function startPage() {
     };margin:10px" >show password:<input ${checkboxStyle()} type="checkbox" onclick="showPassword('pass')"></p>`;
     //html += `<button style="${buttonSize()};margin:10px;" onclick="getList()">Get Passwords List</button><br>`;
     html += `<p style="${paragraphSize()};margin:10px">Search</p>`;
-    html += `<input ${inputStyle()}  type="text" oninput="list_DB_With_Search(this)" placeholder="search password"><br>`;
+    html += `<input ${inputStyle()} id="search_manage" type="text" oninput="list_DB_With_Search(this)" placeholder="search password"><br>`;
     html += `<button style="${buttonSize()};margin-top:5px" onclick="addNewPass(this)">Add Password</button>`;
     html += `<div id="passwords_list" style="overflow:auto;height:30px"  class="slider">`;
     html += `<div class="pass_list">hdisusdn</div>`;
