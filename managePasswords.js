@@ -62,7 +62,12 @@ function btn_message_success(success,msg,btn){
 function list_DB_With_Search(input) {
   let manager_pass = getElement("pass");
   let db = getDB(manager_pass.value);
-  let search_word = input.value;
+  let search_word=""
+  try{
+    search_word = input.value;
+  }catch{
+    search_word=""
+  }
   let newdb_ids = findBestMatchs(db, search_word);
   //z.filter((el,i)=>x.some(j => i === j))
   //filter db by newly found matches id

@@ -255,6 +255,12 @@ function ImportEncrypted(btn,append){
                 btn.innerHTML="Cancel!"
                 setTimeout(()=>{btn.outerHTML=prev_state},2000)
             }
+        }else{
+            writeDB(edb.value,append)
+            edb.value="Imported with success!"
+            btn=success_btn(btn)
+            btn.innerHTML="Success!"
+            setTimeout(()=>{btn.outerHTML=prev_state},2000)
         }
     }else{
         writeDB(edb.value,append)
