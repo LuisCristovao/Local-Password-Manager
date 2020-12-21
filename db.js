@@ -171,3 +171,20 @@ function dbToCsv(pass_value) {
 function exportDB() {
   return localStorage["PM"];
 }
+// sync id ---
+function existsSyncId(){
+  if (localStorage["PMSYNC"]==null || localStorage["PMSYNC"]==""){
+    return false
+  }
+  return true
+}
+
+function saveSyncId(hash){
+  localStorage["PMSYNC"]=hash
+}
+function getSyncId(){
+  if(existsSyncId()){
+    return localStorage["PMSYNC"]
+  }
+  return ""
+}

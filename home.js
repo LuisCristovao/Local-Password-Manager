@@ -49,7 +49,7 @@ function start_home() {
     home_page += createUL()
     let menu=[]
     if(dbIsEmpty()){
-        menu = ["Manage Passwords","Import Text Passwords"]
+        menu = ["Manage Passwords","Import Text Passwords","Sync Passwords"]
     }else{
         menu = ["Manage Passwords", "Change Master Password", "Import Text Passwords", "Export Passwords","Sync Passwords"]
     }

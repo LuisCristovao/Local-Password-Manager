@@ -56,6 +56,11 @@ async function import_data(btn){
           alert("Import canceled, by user!")
         }
       }
+  }else{
+    writeDB(encrypted_db,false)
+          alert("Success importing data!")
+          //erase data on server
+          await Communication("send")
   }
   }
   
