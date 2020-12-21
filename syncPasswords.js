@@ -36,7 +36,7 @@ async function import_data(btn){
   let encrypted_db=await Communication("get")
   //alert(encrypted_db)
   if(encrypted_db==""){
-    alert("The sync id return empty data, please send again data from other source.")
+    alert("The Sync ID used returned empty data! please send again data from other source.")
   }else{
 
     if(!dbIsEmpty()){
