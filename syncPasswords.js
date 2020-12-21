@@ -29,7 +29,7 @@ function checkScreenRatio() {
 }
 function startPage() {
   let html = "";
-
+  html+=`<button class="btn" style="font-size: ${(PageWithHeightRatio() >= changeRatio)?"3em":"3em"};left:0%;position: absolute;" onclick="goToInitialMenu()" >&lt;</button>`
   html += `<p style="${paragraphSize()};${
     PageWithHeightRatio() >= changeRatio ? "margin-top:10%" : "margin-top:20%"
   }">Sync ID:</p><input ${inputStyle()} type="text" id="sync_id"><br>`;
