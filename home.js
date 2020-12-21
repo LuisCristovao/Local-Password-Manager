@@ -35,13 +35,13 @@ function createLi(text) {
     }
 }
 
-function checkScreenRatio() {
+ function checkScreenRatio() {
     if (prev_screen_ratio != PageWithHeightRatio()) {
         prev_screen_ratio=PageWithHeightRatio()
         start_home()
     }
     setTimeout(checkScreenRatio,350)
-}
+} 
 
 function start_home() {
 
@@ -51,7 +51,7 @@ function start_home() {
     if(dbIsEmpty()){
         menu = ["Manage Passwords","Import Text Passwords"]
     }else{
-        menu = ["Manage Passwords", "Change Master Password", "Import Text Passwords", "Export Passwords"]
+        menu = ["Manage Passwords", "Change Master Password", "Import Text Passwords", "Export Passwords","Sync Passwords"]
     }
     menu.forEach(el => {
         home_page += createLi(el)
@@ -84,5 +84,5 @@ function liAnimation(){
 }
 //Main--------
 start_home()
-checkScreenRatio()
+checkScreenRatio(start_home)
 liAnimation()
