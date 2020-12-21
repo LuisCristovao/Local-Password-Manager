@@ -33,7 +33,10 @@ async function Communication(get){
   
 }
 async function import_data(btn){
-  alert(await Communication("get"))
+  let encrypted_db=await Communication("get")
+  alert(encrypted_db)
+  writeDB(encrypted_db,false)
+
 }
 async function send(btn){
   alert(await Communication("send"))
@@ -93,7 +96,7 @@ function checkScreenRatio() {
     prev_screen_ratio = PageWithHeightRatio();
     startPage();
   }
-  setTimeout(checkScreenRatio, 500);
+  //setTimeout(checkScreenRatio, 500);
 }
 function startPage() {
   let html = "";
