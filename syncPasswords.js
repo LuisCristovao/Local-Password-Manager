@@ -56,16 +56,14 @@ async function import_data(btn){
           alert("Import canceled, by user!")
         }
       }
-  }else{
-    writeDB(encrypted_db,false)
+    }else{
+          writeDB(encrypted_db,false)
           alert("Success importing data!")
           //erase data on server
           await Communication("send")
+    }
   }
-  }
-  
-  
-
+  saveSyncId(getElement("sync_id").value)
 }
 async function send(btn){
   if(dbIsEmpty()){
@@ -75,35 +73,7 @@ async function send(btn){
     await Communication("send",exportDB())
     alert("Send to server:\n"+exportDB())
   }
-}
-function ImportEncrypted(){
-  //if db is not empty
-      if(!dbIsEmpty()){
-          if (confirm("Already have passwords stored wnat to append?")){
-              /* writeDB(edb.value,append)         
-              edb.value="Imported with success!"
-              btn=success_btn(btn)
-              btn.innerHTML="Success!"
-              setTimeout(()=>{btn.outerHTML=prev_state},2000) */   
-          }else{
-              if(confirm("Want to overwrite local passwords?")){
-
-              }else{
-                alert("Canceled import!")
-              }
-              /* edb.value="Cancel by user!"
-              btn=fail_btn(btn)
-              btn.innerHTML="Cancel!"
-              setTimeout(()=>{btn.outerHTML=prev_state},2000) */
-          }
-      }else{
-         /*  writeDB(edb.value,append)
-          edb.value="Imported with success!"
-          btn=success_btn(btn)
-          btn.innerHTML="Success!"
-          setTimeout(()=>{btn.outerHTML=prev_state},2000) */
-      }
-  
+  saveSyncId(getElement("sync_id").value)
 }
 
 function paragraphSize() {
@@ -133,12 +103,19 @@ function checkScreenRatio() {
   }
   //setTimeout(checkScreenRatio, 500);
 }
+function calculateSyncID(){
+  if (existsSyncId()){
+    return getSyncId()
+  }else{
+    return RandomPass(5)
+  }
+}
 function startPage() {
   let html = "";
   html+=`<button class="btn" style="font-size: ${(PageWithHeightRatio() >= changeRatio)?"3em":"3em"};left:0%;position: absolute;" onclick="goToInitialMenu()" >&lt;</button>`
   html += `<p style="${paragraphSize()};${
     PageWithHeightRatio() >= changeRatio ? "margin-top:10%" : "margin-top:20%"
-  }">Sync ID:</p><input ${inputStyle()} type="text" id="sync_id"><br>`;
+  }">Sync ID:</p><input ${inputStyle()} type="text" id="sync_id" value=${calculateSyncID()}><br>`;
   html += `<button style="font-size: ${
     PageWithHeightRatio() >= changeRatio ? "1.5em" : "1.5em"
   };margin-top:${
