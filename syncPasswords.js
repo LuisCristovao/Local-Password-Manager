@@ -109,7 +109,7 @@ function calculateSyncID(){
   if (existsSyncId()){
     return getSyncId()
   }else{
-    return RandomPass(5)
+    return RandomPassSync(5)
   }
 }
 function startPage() {
