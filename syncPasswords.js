@@ -15,6 +15,7 @@ async function Communication(get="get",msg=""){
                 return await response.text()  
             }catch(err){
                 alert(`request fail with error ${err}`)
+                return ""
             }
         
       }else{
@@ -26,9 +27,10 @@ async function Communication(get="get",msg=""){
               body: msg
           })
           return await response.text()  
-      }catch(err){
+        }catch(err){
           alert(`request fail with error ${err}`)
-      }
+          return ""
+        }
       }
   
 }
@@ -126,6 +128,7 @@ function startPage() {
   };margin-top:${
     PageWithHeightRatio() >= changeRatio ? "5%" : "5%"
   }" onclick="import_data(this)">Import Encrypted Passwords</button><br>`;
+  html+=`<p>Make sure <b>Sync ID</b> on both machines is the same, in order to sync.</p>`
   getElement("syncPasswordsDiv").innerHTML = html;
 }
 //Main----------

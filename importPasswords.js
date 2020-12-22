@@ -2,7 +2,7 @@
 let  prev_screen_ratio = PageWithHeightRatio()
 let import_btns_array=[
     {
-        "name":"Import Encrypted DB",
+        "name":"Import Encrypted",
         "function":"ImportEncryptedDB()"
     },
     {
@@ -244,11 +244,13 @@ function ImportEncrypted(btn,append){
     if(!append){
         if(!dbIsEmpty()){
             if (confirm("This will overwrite previouse data. Are you sure you want to continue?")){
+                if(edb.value=="") saveSyncId("")
                 writeDB(edb.value,append)         
                 edb.value="Imported with success!"
                 btn=success_btn(btn)
                 btn.innerHTML="Success!"
-                setTimeout(()=>{btn.outerHTML=prev_state},2000)   
+                setTimeout(()=>{btn.outerHTML=prev_state},2000)
+                   
             }else{
                 edb.value="Cancel by user!"
                 btn=fail_btn(btn)

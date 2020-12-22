@@ -17,7 +17,7 @@ function createUL() {
     }
     //height > width
     else {
-        return `<ul style="padding:20%;">`
+        return `<ul style="padding:15%;">`
     }
 }
 function goToUrl(url){
@@ -51,7 +51,7 @@ function start_home() {
     if(dbIsEmpty()){
         menu = ["Manage Passwords","Import Text Passwords","Sync Passwords"]
     }else{
-        menu = ["Manage Passwords", "Change Master Password", "Import Text Passwords", "Export Passwords","Sync Passwords"]
+        menu = ["Manage Passwords","Import Text Passwords", "Export Passwords","Sync Passwords","Change Master Password"]
     }
     menu.forEach(el => {
         home_page += createLi(el)
