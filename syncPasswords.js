@@ -35,7 +35,10 @@ async function Communication(get="get",msg=""){
   
 }
 async function import_data(btn){
+  let prev_btn_state=btn.outerHTML
+  btn.innerHTML="Loading..."
   let encrypted_db=await Communication("get")
+  btn.outerHTML=prev_btn_state
   //alert(encrypted_db)
   if(encrypted_db==""){
     alert("The Sync ID used returned empty data! please send again data from other source.")
@@ -69,12 +72,15 @@ async function import_data(btn){
 }
 async function send(btn){
   if(dbIsEmpty()){
-    alert("Yu have nothing to send!")
+    alert("You have nothing to send!")
   }else{
-
+    let prev_btn_state=btn.outerHTML
+    btn.innerHTML="Loading..."
     await Communication("send",exportDB())
+    btn.outerHTML=prev_btn_state
     alert("Send to server:\n"+exportDB())
   }
+  //save sync id on localstore
   saveSyncId(getElement("sync_id").value)
 }
 
