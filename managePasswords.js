@@ -9,7 +9,7 @@ function createListElement(row, id) {
   };margin:10px">${row.site}</p>`;
   html += `<p style="font-size:${
     PageWithHeightRatio() >= changeRatio ? "1.2em" : "1.2em"
-  };margin:10px">${row.description}</p>`;
+  };margin:10px">${(row.description.length>=50)?row.description.substr(0,50)+"...":row.description}</p>`;
   html += `<button style="font-size:${
     PageWithHeightRatio() >= changeRatio ? "1.8em" : "1.8em"
   }" onclick="passwordMenu(${id},this)">Open</button>`;
