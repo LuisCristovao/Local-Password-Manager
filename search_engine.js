@@ -18,24 +18,27 @@ function findBestMatchs(db,search_word){
         
         db.forEach((el,id) => {
             let row_similarity_index=0
-            let site_array=el.site.split(" ")
+            let number_of_words_selected=0
+            let site_array=el.site.split(" ") //aggregate similar site words
             let search_words_array=search_word.split(" ")
             site_array.forEach(site=>{
                 search_words_array.forEach(search_word_el=>{
                     let similarity=supercompare(search_word_el.toLocaleLowerCase(),site.toLocaleLowerCase())
                     if(similarity>=similarity_index){
                         row_similarity_index+=similarity
+                        number_of_words_selected++
                     }
                 })
             })
             
-            let desc_array=el.description.split(" ")
+            let desc_array=el.description.split(" ")//aggregate similar description words
             desc_array.forEach(description=>{
                 search_words_array.forEach(search_word_el=>{
 
                     let similarity=supercompare(search_word_el.toLocaleLowerCase(),description.toLocaleLowerCase())
                     if(similarity>=similarity_index){
                         row_similarity_index+=similarity
+                        number_of_words_selected++
                     }
                 })
             })
@@ -44,7 +47,7 @@ function findBestMatchs(db,search_word){
                 //check if already push this id into filtered_db
                 if(!findInArray(id,filtered_db.map(el=>el[0]))){
 
-                    filtered_db.push([id,row_similarity_index])
+                    filtered_db.push([id,(row_similarity_index/number_of_words_selected)])
                 }
             }
         });
