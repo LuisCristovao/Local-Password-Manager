@@ -11,7 +11,7 @@ self.addEventListener('install', function(event) {
             'favicon.png',
             'home.html',
             'home.js',
-            'home.png.jpg',
+            'home.jpg',
             'importPasswords.html',
             'importPasswords.js',
             'index.css',
@@ -47,7 +47,7 @@ self.addEventListener('install', function(event) {
           });
           return response;
         }).catch(function () {
-          return caches.match('/sw-test/gallery/myLittleVader.jpg');
+          return caches.match('home.jpg');
         });
       }
     }));
