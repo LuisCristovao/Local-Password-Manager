@@ -8,7 +8,6 @@ self.addEventListener('install', function(event) {
             'encryption.js',
             'exportPasswords.html',
             'exportPasswords.js',
-            'favicon.png',
             'home.html',
             'home.js',
             'home.jpg',
@@ -23,7 +22,13 @@ self.addEventListener('install', function(event) {
             'search_engine.js',
             'sw.js',
             'syncPasswords.html',
-            'syncPasswords.js'
+            'syncPasswords.js',
+            'manifest.json',
+            'favicon48.png',
+            'favicon72.png',
+            'favicon128.png',
+            'favicon256.png',
+            'favicon512.png',
         ]);
       })
     );
