@@ -373,7 +373,7 @@ function initialTutorial(input){
     html += `<div class="pass_list">hdisusdn</div>`;
     html += `</div>`;
     getElement("ManagePasswords").innerHTML += html;
-    setTimeout(getList,200);
+    //setTimeout(getList,200);
     setTimeout(()=>{getElement("pass").setAttribute("oninput","getList()")},200)
     getElement("pass").value=input.value
     getElement("pass").focus()
