@@ -1,5 +1,5 @@
 let modal = false;
-let initial_body_height=body.offsetHeight;
+let initial_body_height = body.offsetHeight;
 //manager_pass.setAttribute("oninput","getList()")
 function createListElement(row, id) {
   let html = "";
@@ -9,7 +9,11 @@ function createListElement(row, id) {
   };margin:10px">${row.site}</p>`;
   html += `<p style="font-size:${
     PageWithHeightRatio() >= changeRatio ? "1.2em" : "1.2em"
-  };margin:10px">${(row.description.length>=50)?row.description.substr(0,50)+"...":row.description}</p>`;
+  };margin:10px">${
+    row.description.length >= 50
+      ? row.description.substr(0, 50) + "..."
+      : row.description
+  }</p>`;
   html += `<button style="font-size:${
     PageWithHeightRatio() >= changeRatio ? "1.8em" : "1.8em"
   }" onclick="passwordMenu(${id},this)">Open</button>`;
@@ -35,38 +39,42 @@ function listDB(db, filtered_ids = []) {
     password_list.innerHTML = html;
   }
 }
-function success_btn(btn){
+function success_btn(btn) {
   //btn.style["font-size"]="1em"
-  btn.style.color="lawngreen"
-  btn.style["border-color"]="aqua"
-  return btn
+  btn.style.color = "lawngreen";
+  btn.style["border-color"] = "aqua";
+  return btn;
 }
-function fail_btn(btn){
+function fail_btn(btn) {
   //btn.style["font-size"]="1em"
-  btn.style.color="red"
-  btn.style["border-color"]="currentcolor"
-  return btn
+  btn.style.color = "red";
+  btn.style["border-color"] = "currentcolor";
+  return btn;
 }
-function btn_message_success(success,msg,btn){
-  let prev_state=btn.outerHTML
-  if(success){
-    btn.innerHTML=msg
-    btn=success_btn(btn)
-    setTimeout(()=>{btn.outerHTML=prev_state},2000)
-  }else{
-    btn.innerHTML=msg
-    btn=fail_btn(btn)
-    setTimeout(()=>{btn.outerHTML=prev_state},2000)
+function btn_message_success(success, msg, btn) {
+  let prev_state = btn.outerHTML;
+  if (success) {
+    btn.innerHTML = msg;
+    btn = success_btn(btn);
+    setTimeout(() => {
+      btn.outerHTML = prev_state;
+    }, 2000);
+  } else {
+    btn.innerHTML = msg;
+    btn = fail_btn(btn);
+    setTimeout(() => {
+      btn.outerHTML = prev_state;
+    }, 2000);
   }
 }
 function list_DB_With_Search(input) {
   let manager_pass = getElement("pass");
   let db = getDB(manager_pass.value);
-  let search_word=""
-  try{
+  let search_word = "";
+  try {
     search_word = input.value;
-  }catch{
-    search_word=""
+  } catch {
+    search_word = "";
   }
   let newdb_ids = findBestMatchs(db, search_word);
   //z.filter((el,i)=>x.some(j => i === j))
@@ -82,12 +90,12 @@ function getList() {
   } else {
     let db = getDB(manager_pass.value);
     //listDB(db);
-    list_DB_With_Search(getElement("search_manage"))
-    listHeight()
+    list_DB_With_Search(getElement("search_manage"));
+    listHeight();
   }
 }
-function CloseMenu(btn,id) {
-  save(id)// save changes made in password edit mode
+function CloseMenu(btn, id) {
+  save(id); // save changes made in password edit mode
   let parent = btn.parentElement;
   parent.parentElement.removeChild(parent);
   modal = false;
@@ -98,11 +106,18 @@ function CloseMenu(btn,id) {
     setTimeout(getList,500)
   }*/
 }
-function signalInput(input,color){
-  let size="medium"
-  setTimeout(()=>{input.style["border-color"]=color;input.style["border-width"]=size},300);
-  setTimeout(()=>input.style.border="",1000);setTimeout(()=>{input.style["border-color"]=color;input.style["border-width"]=size},1500);
-  setTimeout(()=>input.style.border="",2000)
+function signalInput(input, color) {
+  let size = "medium";
+  setTimeout(() => {
+    input.style["border-color"] = color;
+    input.style["border-width"] = size;
+  }, 300);
+  setTimeout(() => (input.style.border = ""), 1000);
+  setTimeout(() => {
+    input.style["border-color"] = color;
+    input.style["border-width"] = size;
+  }, 1500);
+  setTimeout(() => (input.style.border = ""), 2000);
 }
 function Edit(btn, id) {
   let manager_pass = getElement("pass");
@@ -127,11 +142,10 @@ function Edit(btn, id) {
       password.style.height = "0px";
       password.style.opacity = "0";
       password.style.border = "";
-      
-      if(manager_pass.value==""){
-        btn_message_success(false,"Empty Pass!",btn)
-      }else{
 
+      if (manager_pass.value == "") {
+        btn_message_success(false, "Empty Pass!", btn);
+      } else {
         let db_line = {
           site: site.value,
           description: description.value,
@@ -140,7 +154,7 @@ function Edit(btn, id) {
         };
         updateDB(db_line, id, manager_pass.value);
         btn.innerHTML = "Edit";
-        btn_message_success(true,"Success!",btn)
+        btn_message_success(true, "Success!", btn);
         getList();
       }
       // btn.setAttribute("onclick","showUserPass(this)")
@@ -158,16 +172,16 @@ function Delete(btn, id) {
     parent2.parentElement.removeChild(parent2);
   }
 }
-function randomPassEvent(input){
-  if (input.target.value.search(/random\([0-9]+\)/i)!=-1){
-    let length=parseInt(input.target.value.replace(/\D/g,''))
-    input.target.value=RandomPass(length)
+function randomPassEvent(input) {
+  if (input.target.value.search(/random\([0-9]+\)/i) != -1) {
+    let length = parseInt(input.target.value.replace(/\D/g, ""));
+    input.target.value = RandomPass(length);
   }
 }
 function checkIfUserAndPassIsEmpty() {
   let username = document.getElementsByName("Username")[0];
   let password = document.getElementsByName("Password")[0];
-  
+
   if (username.value == "" && password.value == "") {
     username.style.height = "auto";
     username.style.opacity = "100";
@@ -175,7 +189,7 @@ function checkIfUserAndPassIsEmpty() {
     password.style.height = "auto";
     password.style.opacity = "100";
     password.style.border = "solid 1px white";
-    getElement("edit").innerHTML="Submit"
+    getElement("edit").innerHTML = "Submit";
   }
 }
 function save(id) {
@@ -197,7 +211,9 @@ function save(id) {
 function show_password_info(show_data, id, edit = true) {
   modal = true;
   let html = `<button class="btn" style="${backHomeBtnSize()}" onclick="CloseMenu(this,${id})" >&lt;</button>`;
-  html += `<div align="center" style="${PageWithHeightRatio() >= changeRatio ? "margin-top:20px" : ""}">`;
+  html += `<div align="center" style="${
+    PageWithHeightRatio() >= changeRatio ? "margin-top:20px" : ""
+  }">`;
   html += `<input  name="site"  style="background:transparent;border:solid white 2px;color:white;font-size:${
     PageWithHeightRatio() >= changeRatio ? "1.5em" : "1.5em"
   };width:${
@@ -231,10 +247,10 @@ function show_password_info(show_data, id, edit = true) {
   }<button style="${buttonSize()}" onclick="Delete(this,${id})">Delete</button>`;
   html += "</div>";
   // add event listner to modal password input
-  setTimeout(()=>{
+  setTimeout(() => {
     let password = document.getElementsByName("Password")[0];
-    password.addEventListener("input",randomPassEvent)
-  },300)
+    password.addEventListener("input", randomPassEvent);
+  }, 300);
   return html;
 }
 
@@ -247,58 +263,49 @@ function Copy(user_pass, btn) {
     btn.innerHTML = user_pass;
   }, 1000);
 }
-function passwordMenu(id,btn) {
+function passwordMenu(id, btn) {
   let manager_pass = getElement("pass");
-  if(manager_pass.value==""){
-    btn_message_success(false,"Fill Password First!",btn)
-  } else{
-    
-
-      let decrypt_db = getDB(manager_pass.value);
-      let db_line = decrypt_db[id];
-      let div = document.createElement("div");
-      div.style.position = "absolute";
-      div.style.width = "99.6%";
-      div.style.top = "0px";
-      div.style.height = `${initial_body_height}`;
-      div.style.margin = "0px";
-      div.style.padding = "0px";
-      div.style.background = "#232323";
-      div.style.border = "solid white 2px";
-      div.style["z-index"] = "20";
-      div.innerHTML += show_password_info(db_line, id);
-      body.appendChild(div);
-    }
-  
+  if (manager_pass.value == "") {
+    btn_message_success(false, "Fill Password First!", btn);
+  } else {
+    let decrypt_db = getDB(manager_pass.value);
+    let db_line = decrypt_db[id];
+    let div = document.createElement("div");
+    div.style.position = "absolute";
+    div.style.width = "99.6%";
+    div.style.top = "0px";
+    div.style.height = `${initial_body_height}`;
+    div.style.margin = "0px";
+    div.style.padding = "0px";
+    div.style.background = "#232323";
+    div.style.border = "solid white 2px";
+    div.style["z-index"] = "20";
+    div.innerHTML += show_password_info(db_line, id);
+    body.appendChild(div);
+  }
 }
 
 function addNewPass(btn) {
   let manager_pass = getElement("pass");
-  if(manager_pass.value==""){
-    btn_message_success(false,"Fill Password First!",btn)
-  } else{
-    
+  if (manager_pass.value == "") {
+    btn_message_success(false, "Fill Password First!", btn);
+  } else {
+    let decrypt_db = getDB(manager_pass.value);
+    let div = document.createElement("div");
+    div.style.position = "absolute";
+    div.style.width = "99.6%";
+    div.style.top = "0px";
 
-      let decrypt_db = getDB(manager_pass.value);
-      let div = document.createElement("div");
-      div.style.position = "absolute";
-      div.style.width = "99.6%";
-      div.style.top = "0px";
-      
-      div.style.height = `${initial_body_height}`;
-      div.style.margin = "0px";
-      div.style.padding = "0px";
-      div.style.background = "#232323";
-      div.style.border = "solid white 2px";
-      div.style["z-index"] = "20";
-      div.innerHTML += show_password_info(emptyDbLine(), decrypt_db.length);
-      body.appendChild(div);
-      checkIfUserAndPassIsEmpty();
-    
-
-    
+    div.style.height = `${initial_body_height}`;
+    div.style.margin = "0px";
+    div.style.padding = "0px";
+    div.style.background = "#232323";
+    div.style.border = "solid white 2px";
+    div.style["z-index"] = "20";
+    div.innerHTML += show_password_info(emptyDbLine(), decrypt_db.length);
+    body.appendChild(div);
+    checkIfUserAndPassIsEmpty();
   }
-
 }
 
 function paragraphSize() {
@@ -363,26 +370,25 @@ function backHomeBtnSize() {
     return `font-size:3em`;
   }
 }
-function initialTutorial(input){
-  if(input.value!=""){
-    
+function initialTutorial(input) {
+  if (input.value != "") {
     let html = "";
     html += `<button style="${buttonSize()};margin-top:5px" onclick="addNewPass(this)">Add Password</button>`;
     html += `<div id="passwords_list" style="overflow:auto;height:30px"  class="slider">`;
-    html += `<div class="pass_list">hdisusdn</div>`;
-    html += `<div class="pass_list">hdisusdn</div>`;
     html += `</div>`;
     getElement("ManagePasswords").innerHTML += html;
     //setTimeout(getList,200);
-    setTimeout(()=>{getElement("pass").setAttribute("oninput","getList()")},200)
-    getElement("pass").value=input.value
+    //setTimeout(() => {
+    getElement("pass").setAttribute("oninput", "getList()");
+    //}, 100);
+    getElement("pass").value = input.value;
     getElement("pass").focus()
-  }else{
-    startPage()
+  } else {
+    startPage();
   }
 }
 function startPage() {
-  if(dbIsEmpty()){
+  if (dbIsEmpty()) {
     let html = "";
     html += `<button class="btn"  style="${backHomeBtnSize()};left:0%;position: absolute;" onclick="goToInitialMenu()" >&lt;</button>`;
     html += `<p style="${paragraphSize()};margin-bottom:10px">Master Password</p>`;
@@ -391,7 +397,7 @@ function startPage() {
       PageWithHeightRatio() >= changeRatio ? "1.2em" : "1.2em"
     };margin:10px" >show password:<input ${checkboxStyle()} type="checkbox" onclick="showPassword('pass')"></p>`;
     getElement("ManagePasswords").innerHTML = html;
-  }else{
+  } else {
     let html = "";
     html += `<button class="btn" style="${backHomeBtnSize()};left:0%;position: absolute;" onclick="goToInitialMenu()" >&lt;</button>`;
     html += `<p style="${paragraphSize()};margin-bottom:10px">Master Password</p>`;
@@ -409,7 +415,6 @@ function startPage() {
     html += `</div>`;
     getElement("ManagePasswords").innerHTML = html;
     getList();
-    
   }
 }
 function checkScreenRatio() {
@@ -425,7 +430,7 @@ let prev_screen_ratio = PageWithHeightRatio();
 startPage();
 checkScreenRatio();
 //getList();
-signalInput(getElement("pass"),"red")
+signalInput(getElement("pass"), "red");
 //let manager_pass = getElement("pass");
 //let search = getElement("search password");
 //let password_list = getElement("passwords_list");
