@@ -2,4 +2,4 @@
  Program that allows to manage passwords safely and locally only using browser localStorage
  
 ## Site 
-https://luiscristovao.github.io/Local-Password-Manager/
+https://luiscristovao.github.io/Projects/?Local-Password-Manager-v2
