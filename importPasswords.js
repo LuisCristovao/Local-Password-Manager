@@ -70,10 +70,10 @@ function ImportDecryptedCSV(){
     let html=`<button class="btn" style="font-size: ${backHomeBtnSize()};left:0%;position: absolute;margin:1%" onclick="window.location.reload()" >&lt;</button>`
     
     html+=`<p style="${(PageWithHeightRatio() >= changeRatio)?"font-size:1.9em;margin-bottom:10px":"font-size:1.5em;margin-top:20%"}">Password used to encrypt:</p><input style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.5em":"1.5em"}" id="password_import" type="password"><p style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.2em":"1.2em"}">show password:<input type="checkbox" style="zoom:${(PageWithHeightRatio() >= changeRatio)?"1.5":"1.5"}" onclick="showPassword('password_import')"></p>`
-    html+=`<p style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.2em":"1.2em"}" >Data splitting character:<input id="spliting character" type="text" value="," style="width:30;font-size:${(PageWithHeightRatio() >= changeRatio)?"1.5em":"1em"}"></p><br>`
+    html+=`<p style="font-size:${(PageWithHeightRatio() >= changeRatio)?"1.2em":"1.2em"}" >Data splitting character:<input id="spliting character" type="text" value="\\t" style="width:30;font-size:${(PageWithHeightRatio() >= changeRatio)?"1.5em":"1em"}"></p><br>`
     html+=`<textarea id="data" style="${(PageWithHeightRatio() >= changeRatio)?"width:500;height:200;margin-bottom:20px;font-size:1.2em":"width:80%;height:40%;margin-bottom:20px;font-size:1.2em"}">`
-    html+=`facebook,user1,12345,facebook password example\n`
-    html+=`google,user2,1223,google password example description\n`
+    html+=`facebook\tuser1\t12345\tfacebook password example\n`
+    html+=`google\tuser2\t1223\tgoogle password example description\n`
     html+=`</textarea><br>`
     html+=`<button style="font-size:${(PageWithHeightRatio() >= changeRatio)?"2em":"2em"}" onclick="Import(this,false)">Import</button>`
     html+=`<button style="font-size:${(PageWithHeightRatio() >= changeRatio)?"2em":"2em"}" onclick="Import(this,true)">Append</button>`

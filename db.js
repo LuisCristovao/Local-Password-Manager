@@ -114,7 +114,11 @@ function EncryptDB(db, pass_value) {
 function csvToDB(data, pass_value, split_data_character,append) {
   let db = [];
   if(append){
-    data+=dbToCsv(pass_value)[0].replaceAll("\t",split_data_character)
+    if(split_data_character!="\\t"){
+      data+=dbToCsv(pass_value)[0].replaceAll("\t",split_data_character)
+    }else{
+      data+=dbToCsv(pass_value)[0]
+    }
   }
   let db_line = {};
   data.split("\n").forEach((row, id) => {
