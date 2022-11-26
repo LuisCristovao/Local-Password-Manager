@@ -20,6 +20,7 @@ button {
   margin: 1%;
   padding: 0.4%;
   font-size: xx-large;
+  cursor: pointer;
 }
 input {
   border-radius: 7px;

@@ -30,54 +30,26 @@ async function Communication(get = "get", msg = "") {
     }
   }
 }
-async function import_data(btn) {
-  let prev_btn_state = btn.outerHTML;
-  btn.innerHTML = "Loading...";
-  let encrypted_db = await Communication("get");
-  btn.outerHTML = prev_btn_state;
-  //alert(encrypted_db)
-  if (encrypted_db == "") {
-    alert(
-      "The Sync ID used returned empty data! please send again data from other source."
-    );
+function import_data( append) {
+  let encrypted_db=document.getElementsByTagName("textarea")[0].value
+  if (append) {
+    writeDB(encrypted_db, true);
+    alert("Success appending data!");
+    window.location.href="http://192.168.1.88:5500/index.html"
   } else {
-    if (!dbIsEmpty()) {
-      if (confirm("You already have passwords stored want to append?")) {
-        writeDB(encrypted_db, true);
-        alert("Success appending data!");
-        //erase data on server
-        await Communication("send");
-      } else {
-        if (confirm("Want to overwrite?")) {
-          writeDB(encrypted_db, false);
-          alert("Success importing data!");
-          //erase data on server
-          await Communication("send");
-        } else {
-          alert("Import canceled, by user!");
-        }
-      }
-    } else {
-      writeDB(encrypted_db, false);
-      alert("Success importing data!");
-      //erase data on server
-      await Communication("send");
-    }
+    writeDB(encrypted_db, false);
+    alert("Success importing data!");
+    window.location.href="http://192.168.1.88:5500/index.html"
   }
-  saveSyncId(getElement("sync_id").value);
 }
-async function send(btn) {
+
+function sendPasswordsEncrypted() {
   if (dbIsEmpty()) {
     alert("You have nothing to send!");
   } else {
-    let prev_btn_state = btn.outerHTML;
-    btn.innerHTML = "Loading...";
-    await Communication("send", exportDB());
-    btn.outerHTML = prev_btn_state;
-    alert("Send to server:\n" + exportDB());
+    conn.send(exportDB())
   }
-  //save sync id on localstore
-  saveSyncId(getElement("sync_id").value);
+ 
 }
 
 function paragraphSize() {
@@ -116,13 +88,11 @@ function calculateSyncID() {
 }
 function startPage() {
   let html = "";
-  html+=`<h3>You host name is: ${host_name}</h3><br>`
+  html += `<h3>You host name is: ${host_name}</h3><br>`;
   html += `<h3>Read QR Code to connect</h3><br>`;
   html += `<img><br>`;
   getElement("syncPasswordsDiv").innerHTML = html;
-  
-  //connection variable
-  var conn = null;
+
   var connection_established = false;
   // first host to receive connection
   peer.on("open", function (id) {
@@ -144,16 +114,16 @@ function startPage() {
     conn = _conn;
 
     setTimeout(() => {
-      conn.send("Hello22");
+      conn.send(`Hello!${host_name}`);
     }, 200);
 
     conn.on("data", (data) => {
       console.log("Received3: ", data);
-      /* if(data=="Hello!"){
-
-      }else{
-
-      } */
+      if (data.slice(0, 6).includes("Hello!")) {
+        createConnectionEstablishedPage(data.slice(6));
+      } else {
+        receiveDataPage(data)
+      }
     });
   });
 
@@ -164,7 +134,20 @@ function startPage() {
     }, 500);
   }
 }
-
+function createConnectionEstablishedPage(_other_host_name) {
+  other_host_name = _other_host_name;
+  let html = `<h3>You host name is: ${host_name}</h3><br>`;
+  html += `<button style="font-size:large" onclick='sendPasswordsEncrypted()'>Send Data to ${other_host_name}</button>`;
+  getElement("syncPasswordsDiv").innerHTML = html;
+}
+function receiveDataPage(data) {
+  let html = `<h3>You're receiving data from host : ${other_host_name}</h3><br>`;
+  html += `<textarea style="visibility:collapsed">${data}</textarea><br>`;
+  html += `<button style="font-size:large" onclick='import_data(append=false)'>OverWrite Data</button>`;
+  html += `<button style="font-size:large" onclick='import_data(append=true)'>Append Data</button>`;
+  // html += `<button style="font-size:large" onclick='alert("Sending data")'>Cancel</button>`;
+  getElement("syncPasswordsDiv").innerHTML = html;
+}
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -176,9 +159,14 @@ function connect() {
     // Receive messages
     conn.on("data", function (data) {
       console.log("Received0", data);
+      if (data.slice(0, 6).includes("Hello!")) {
+        createConnectionEstablishedPage(data.slice(6));
+      } else {
+        receiveDataPage(data)
+      }
     });
     // Send messages
-    conn.send("Hello!");
+    conn.send(`Hello!${host_name}`);
   });
 }
 
@@ -188,7 +176,9 @@ function send(data) {
 
 //Main----------
 //connection code ----
-const host_name=RandomPassSync(5)
+const host_name = RandomPassSync(5);
+var other_host_name = null;
 var peer = new Peer();
+var conn=null
 startPage();
 checkScreenRatio();
