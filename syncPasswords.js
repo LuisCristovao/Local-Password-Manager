@@ -102,7 +102,7 @@ function startPage() {
       .getElementsByTagName("img")[0]
       .setAttribute(
         "src",
-        "https://api.qrserver.com/v1/create-qr-code/?data="+window.location.origin+"/index.html?Connect::" +
+        "https://api.qrserver.com/v1/create-qr-code/?data="+window.location.origin+"/Local-Password-Manager/?Connect::" +
           id +
           "&amp;size=100x100"
       );
