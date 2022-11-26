@@ -35,11 +35,11 @@ function import_data( append) {
   if (append) {
     writeDB(encrypted_db, true);
     alert("Success appending data!");
-    window.location.href="http://192.168.1.88:5500/index.html"
+    window.location.href=window.location.href+"/index.html"
   } else {
     writeDB(encrypted_db, false);
     alert("Success importing data!");
-    window.location.href="http://192.168.1.88:5500/index.html"
+    window.location.href=window.location.href+"/index.html"
   }
 }
 
@@ -102,7 +102,7 @@ function startPage() {
       .getElementsByTagName("img")[0]
       .setAttribute(
         "src",
-        "https://api.qrserver.com/v1/create-qr-code/?data=http://192.168.1.88:5500/index.html?Connect::" +
+        "https://api.qrserver.com/v1/create-qr-code/?data="+window.location.origin+"/index.html?Connect::" +
           id +
           "&amp;size=100x100"
       );
