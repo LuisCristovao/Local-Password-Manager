@@ -6,6 +6,7 @@ const pages = {
   "?Change-Master-Password": () => getHtml("changeMasterPass.html"),
   "?Export-Passwords": () => getHtml("exportPasswords.html"),
   "?Sync-Passwords": () => getHtml("syncPasswords.html"),
+  "?Connect::": () => getHtml("syncPasswords.html"),
 };
 const changeRatio = 1;
 const copyToClipboard = (str) => {
@@ -63,13 +64,22 @@ function goToInitialMenu() {
   window.location.search = "";
 }
 function init() {
+  let find_page=false
   const url = window.location.search;
   const defaultPage = () => getHtml("home.html");
-  if (url in pages) {
-    pages[url]();
-  } else {
-    defaultPage();
+  for(key in pages) {
+    if(url.includes(key)){
+      if(url.includes("?Connect::")){
+        pages["?Connect::"]();
+      }else{
+        pages[url]();
+      }
+      find_page=true
+    }
   }
+  if(!find_page){
+    defaultPage();
+  } 
 }
 //main----
 
