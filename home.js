@@ -66,12 +66,16 @@ function liAnimation(){
     time+=0.1
     const list_elements=Array.from(document.getElementsByTagName('li'))
     var li=list_elements[0]
-    var font_size=parseFloat(li.style["font-size"])
+    if(li.style.color!=''){
+        var color=parseInt(li.style.color.split("rgb(")[1].split(",")[0])
+    }else{
+        var color=255
+    }
     const font_size_max_increase = 0.005
 
-    font_size = font_size + (font_size_max_increase*2) * sin(time)
+     color = 60*sin(0.5*time)+230
     //console.log(font_size)
-    li.style["font-size"] = `${font_size}em`
+    li.style["color"] = `rgb(${color},${color},${color})`
 //    list_elements.forEach(li=>{
 //        var font_size=parseFloat(li.style["font-size"])
 //        const font_size_max_increase=0.01
