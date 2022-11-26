@@ -89,6 +89,7 @@ function calculateSyncID() {
 function startPage() {
   let html = "";
   html += `<h3>You host name is: ${host_name}</h3><br>`;
+  html += `<button class="btn" style="font-size:3em;position:absolute;top:0px;left:0px;;left:0%;position: absolute;" onclick="goToInitialMenu()">&lt;</button>`;
   html += `<h3>Read QR Code to connect</h3><br>`;
   html += `<img><br>`;
   getElement("syncPasswordsDiv").innerHTML = html;
@@ -138,13 +139,17 @@ function createConnectionEstablishedPage(_other_host_name) {
   other_host_name = _other_host_name;
   let html = `<h3>You host name is: ${host_name}</h3><br>`;
   html += `<button style="font-size:large" onclick='sendPasswordsEncrypted()'>Send Data to ${other_host_name}</button>`;
+  html += `<button class="btn" style="font-size:3em;position:absolute;top:0px;left:0px;;left:0%;position: absolute;" onclick="goToInitialMenu()">&lt;</button>`;
   getElement("syncPasswordsDiv").innerHTML = html;
 }
 function receiveDataPage(data) {
-  let html = `<h3>You're receiving data from host : ${other_host_name}</h3><br>`;
-  html += `<textarea style="visibility:collapsed">${data}</textarea><br>`;
+  let html = `<h3>Receiving data from host : ${other_host_name}</h3><br>`;
+  html += `<button class="btn" style="font-size:3em;position:absolute;top:0px;left:0px;;left:0%;position: absolute;" onclick="goToInitialMenu()">&lt;</button>`;
+  html += `<textarea style="width:250px;height:300px">${data}</textarea><br>`;
   html += `<button style="font-size:large" onclick='import_data(append=false)'>OverWrite Data</button>`;
-  html += `<button style="font-size:large" onclick='import_data(append=true)'>Append Data</button>`;
+  if(!dbIsEmpty()){
+    html += `<button style="font-size:large" onclick='import_data(append=true)'>Append Data</button>`;
+  }
   // html += `<button style="font-size:large" onclick='alert("Sending data")'>Cancel</button>`;
   getElement("syncPasswordsDiv").innerHTML = html;
 }

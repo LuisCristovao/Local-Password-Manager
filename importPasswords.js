@@ -41,7 +41,7 @@ function textareaSize(){
     }
     //height > width
     else {
-        return `width:80%;height:60%;margin-bottom:10px;font-size:1.3em`
+        return `width:80%;height:40%;margin-bottom:10px;font-size:1.3em`
     }
 }
 function paragraphSize(){
