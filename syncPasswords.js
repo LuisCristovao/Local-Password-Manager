@@ -35,11 +35,11 @@ function import_data( append) {
   if (append) {
     writeDB(encrypted_db, true);
     alert("Success appending data!");
-    window.location.href=window.location.origin+"/index.html"
+    window.location.href=window.location.origin+"/Local-Password-Manager/"
   } else {
     writeDB(encrypted_db, false);
     alert("Success importing data!");
-    window.location.href=window.location.origin+"/index.html"
+    window.location.href=window.location.origin+"/Local-Password-Manager/"
   }
 }
 
