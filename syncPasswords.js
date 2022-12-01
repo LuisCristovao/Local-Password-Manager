@@ -148,7 +148,7 @@ function startPage() {
       }
     });
 
-    setTimeout(trying_to_connect, 300)
+    setTimeout(trying_to_connect, 500)
 
   });
 
@@ -201,7 +201,7 @@ function connect() {
 
   setTimeout(() => {
     if (!receive_info) {
-      connect()
+      trying_to_connect()
     }
   }, 500)
 }
