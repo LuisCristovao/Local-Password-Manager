@@ -128,7 +128,7 @@ function startPage() {
     }
   }
   //on connection
-  peer.on("connection", function (_conn) {
+  peer.on("connection",  (_conn) => {
     console.log("connected with " + _conn.peer);
     connection_established = true;
     // Send messages
@@ -184,7 +184,7 @@ function connect() {
   //host that initiates invitation for connection
   conn = peer.connect(window.location.search.split("::")[1]);
 
-  conn.on("open", function () {
+  conn.on("open", () => {
     // Receive messages
     conn.on("data", function (data) {
       console.log("Received0", data);
