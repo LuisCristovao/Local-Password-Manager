@@ -98,6 +98,12 @@ function shareConnectionUrl(btn) {
   }
 
 }
+function trying_to_connect() {
+  if (!receive_info) {
+    conn.send(`Hello!${host_name}`);
+    setTimeout(trying_to_connect, 500)
+  }
+}
 function startPage() {
   let html = "";
   html += `<h3>You host name is: ${host_name}</h3><br>`;
@@ -121,14 +127,9 @@ function startPage() {
         "&amp;size=100x100"
       );
   });
-  function trying_to_connect() {
-    if (!receive_info) {
-      conn.send(`Hello!${host_name}`);
-      setTimeout(trying_to_connect, 500)
-    }
-  }
+
   //on connection
-  peer.on("connection",  (_conn) => {
+  peer.on("connection", (_conn) => {
     console.log("connected with " + _conn.peer);
     connection_established = true;
     // Send messages
