@@ -134,6 +134,7 @@ function startPage() {
 
     conn.on("data", (data) => {
       console.log("Received3: ", data);
+      receive_info=true
       if (data.slice(0, 6).includes("Hello!")) {
         createConnectionEstablishedPage(data.slice(6));
       } else {
@@ -146,7 +147,7 @@ function startPage() {
     //wait to load page until try first connect
     setTimeout(() => {
       connect();
-    }, 500);
+    }, 200);
   }
 }
 function createConnectionEstablishedPage(_other_host_name) {
@@ -178,6 +179,7 @@ function connect() {
     // Receive messages
     conn.on("data", function (data) {
       console.log("Received0", data);
+      receive_info=true
       if (data.slice(0, 6).includes("Hello!")) {
         createConnectionEstablishedPage(data.slice(6));
       } else {
@@ -187,6 +189,14 @@ function connect() {
     // Send messages
     conn.send(`Hello!${host_name}`);
   });
+
+  setTimeout(()=>{
+    if(!receive_info){
+      connect()
+    }else{
+      //pass
+    }
+  },200)
 }
 
 function send(data) {
@@ -196,6 +206,7 @@ function send(data) {
 //Main----------
 //connection code ----
 var peer_id=null
+var receive_info=false
 const host_name = RandomPassSync(5);
 var other_host_name = null;
 var peer = new Peer();
