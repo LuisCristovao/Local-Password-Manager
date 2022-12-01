@@ -178,7 +178,7 @@ function connect() {
     // Receive messages
     conn.on("data", function (data) {
       console.log("Received0", data);
-      alert("Received0", data)
+      alert("Received0 " + data)
       if (data.slice(0, 6).includes("Hello!")) {
         createConnectionEstablishedPage(data.slice(6));
       } else {
