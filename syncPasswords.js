@@ -30,16 +30,16 @@ async function Communication(get = "get", msg = "") {
     }
   }
 }
-function import_data( append) {
-  let encrypted_db=document.getElementsByTagName("textarea")[0].value
+function import_data(append) {
+  let encrypted_db = document.getElementsByTagName("textarea")[0].value
   if (append) {
     writeDB(encrypted_db, true);
     alert("Success appending data!");
-    window.location.href=window.location.origin+"/Local-Password-Manager/"
+    window.location.href = window.location.origin + "/Local-Password-Manager/"
   } else {
     writeDB(encrypted_db, false);
     alert("Success importing data!");
-    window.location.href=window.location.origin+"/Local-Password-Manager/"
+    window.location.href = window.location.origin + "/Local-Password-Manager/"
   }
 }
 
@@ -49,7 +49,7 @@ function sendPasswordsEncrypted() {
   } else {
     conn.send(exportDB())
   }
- 
+
 }
 
 function paragraphSize() {
@@ -86,25 +86,39 @@ function calculateSyncID() {
     return RandomPassSync(5);
   }
 }
+function shareConnectionUrl(btn) {
+  if (peer_id != null) {
+    copyToClipboard(window.location.origin + "/Local-Password-Manager/?Connect::" +
+      peer_id)
+    let old_text = btn.innerText
+    btn.innerText = "Copied Link!"
+    setTimeout(() => {
+      btn.innerText = old_text
+    }, 1000)
+  }
+
+}
 function startPage() {
   let html = "";
   html += `<h3>You host name is: ${host_name}</h3><br>`;
   html += `<button class="btn" style="font-size:3em;position:absolute;top:0px;left:0px;;left:0%;position: absolute;" onclick="goToInitialMenu()">&lt;</button>`;
   html += `<h3>Read QR Code to connect</h3><br>`;
   html += `<img><br>`;
+  html += `<button style="font-size:large" onclick="shareConnectionUrl(this)">Share Connection Url</button>`;
   getElement("syncPasswordsDiv").innerHTML = html;
 
   var connection_established = false;
   // first host to receive connection
   peer.on("open", function (id) {
+    peer_id = id
     console.log("My peer ID is: " + id);
     document
       .getElementsByTagName("img")[0]
       .setAttribute(
         "src",
-        "https://api.qrserver.com/v1/create-qr-code/?data="+window.location.origin+"/Local-Password-Manager/?Connect::" +
-          id +
-          "&amp;size=100x100"
+        "https://api.qrserver.com/v1/create-qr-code/?data=" + window.location.origin + "/Local-Password-Manager/?Connect::" +
+        id +
+        "&amp;size=100x100"
       );
   });
   //on connection
@@ -147,7 +161,7 @@ function receiveDataPage(data) {
   html += `<button class="btn" style="font-size:3em;position:absolute;top:0px;left:0px;;left:0%;position: absolute;" onclick="goToInitialMenu()">&lt;</button>`;
   html += `<textarea style="width:250px;height:300px">${data}</textarea><br>`;
   html += `<button style="font-size:large" onclick='import_data(append=false)'>OverWrite Data</button>`;
-  if(!dbIsEmpty()){
+  if (!dbIsEmpty()) {
     html += `<button style="font-size:large" onclick='import_data(append=true)'>Append Data</button>`;
   }
   // html += `<button style="font-size:large" onclick='alert("Sending data")'>Cancel</button>`;
@@ -171,7 +185,10 @@ function connect() {
       }
     });
     // Send messages
-    conn.send(`Hello!${host_name}`);
+    setTimeout(() => {
+      conn.send(`Hello!${host_name}`);
+    }, 200)
+
   });
 }
 
@@ -181,9 +198,10 @@ function send(data) {
 
 //Main----------
 //connection code ----
+var peer_id = null
 const host_name = RandomPassSync(5);
 var other_host_name = null;
 var peer = new Peer();
-var conn=null
+var conn = null
 startPage();
 checkScreenRatio();
