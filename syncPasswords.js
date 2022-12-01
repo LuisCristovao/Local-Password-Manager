@@ -124,7 +124,7 @@ function startPage() {
   function trying_to_connect() {
     if (!receive_info) {
       conn.send(`Hello!${host_name}`);
-      setTimeout(trying_to_connect, 300)
+      setTimeout(trying_to_connect, 500)
     }
   }
   //on connection
@@ -203,7 +203,7 @@ function connect() {
     if (!receive_info) {
       connect()
     }
-  }, 200)
+  }, 500)
 }
 
 function send(data) {
