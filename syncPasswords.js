@@ -128,9 +128,9 @@ function startPage() {
     // Send messages
     conn = _conn;
 
-    setTimeout(() => {
-      conn.send(`Hello!${host_name}`);
-    }, 200);
+
+    conn.send(`Hello!${host_name}`);
+
 
     conn.on("data", (data) => {
       console.log("Received3: ", data);
@@ -146,7 +146,7 @@ function startPage() {
     //wait to load page until try first connect
     setTimeout(() => {
       connect();
-    }, 500);
+    }, 1000);
   }
 }
 function createConnectionEstablishedPage(_other_host_name) {
@@ -186,9 +186,9 @@ function connect() {
       }
     });
     // Send messages
-    setTimeout(() => {
-      conn.send(`Hello!${host_name}`);
-    }, 200)
+
+    conn.send(`Hello!${host_name}`);
+
 
   });
 }
