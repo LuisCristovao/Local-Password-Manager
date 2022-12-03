@@ -135,9 +135,9 @@ function startPage() {
     // Send messages
     conn = _conn;
 
-    setTimeout(() => {
-      conn.send(`Hello!${host_name}`);
-    }, 200);
+
+    conn.send(`Hello!${host_name}`);
+
 
     conn.on("data", (data) => {
       console.log("Received3: ", data);
@@ -149,7 +149,7 @@ function startPage() {
       }
     });
 
-    setTimeout(trying_to_connect, 500)
+    //setTimeout(trying_to_connect, 500)
 
   });
 
