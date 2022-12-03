@@ -191,7 +191,7 @@ function connect(ms=1000) {
     // Receive messages
     conn.on("data", function (data) {
       console.log("Received0", data);
-      alert("Received0 " + data)
+      //alert("Received0 " + data)
       receive_info = true
       send(`Hello!${host_name}`)
       if (data.slice(0, 6).includes("Hello!")) {
@@ -204,11 +204,11 @@ function connect(ms=1000) {
     //conn.send(`Hello!${host_name}`);
   });
 
-  setTimeout(() => {
-    if (!receive_info) {
-      connect(ms+500)
-    }
-  }, ms)
+  // setTimeout(() => {
+  //   if (!receive_info) {
+  //     connect(ms+500)
+  //   }
+  // }, ms)
 }
 
 function send(data) {
