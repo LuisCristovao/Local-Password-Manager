@@ -134,11 +134,8 @@ function startPage() {
     connection_established = true;
     // Send messages
     conn = _conn;
-    
-    setTimeout(() => { 
-      conn.send(`Hello!${host_name}`); 
-    }, 300)
 
+    conn.send(`Hello!${host_name}`);
 
     conn.on("data", (data) => {
       console.log("Received3: ", data);
@@ -155,11 +152,7 @@ function startPage() {
   });
 
   if (window.location.search.split("::")[1] != undefined) {
-    //wait to load page until try first connect
-    setTimeout(()=>{
-      connect();
-    },500)
-    
+    connect();
   }
 }
 function createConnectionEstablishedPage(_other_host_name) {
@@ -183,7 +176,7 @@ function receiveDataPage(data) {
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
-function connect(ms=1000) {
+function connect(ms = 1000) {
   //host that initiates invitation for connection
   conn = peer.connect(window.location.search.split("::")[1]);
 
@@ -206,7 +199,7 @@ function connect(ms=1000) {
 
   setTimeout(() => {
     if (!receive_info) {
-      connect(ms+500)
+      connect(ms + 500)
     }
   }, ms)
 }
