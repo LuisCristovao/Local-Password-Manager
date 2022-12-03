@@ -202,7 +202,7 @@ function connect() {
 
   setTimeout(() => {
     if (!receive_info) {
-      trying_to_connect()
+      connect()
     }
   }, 500)
 }
