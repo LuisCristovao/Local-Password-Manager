@@ -135,16 +135,15 @@ function startPage() {
     // Send messages
     conn = _conn;
 
-
-    conn.send(`Hello!${host_name}`);
-
+    setTimeout(() => {
+      conn.send(`Hello!${host_name}`);
+    }, 1000)
 
     conn.on("data", (data) => {
       console.log("Received3: ", data);
       receive_info = true
       if (data.slice(0, 6).includes("Hello!")) {
         createConnectionEstablishedPage(data.slice(6));
-        conn.send(`Hello!${host_name}`);
       } else {
         receiveDataPage(data)
       }
@@ -158,7 +157,7 @@ function startPage() {
     //wait to load page until try first connect
     setTimeout(() => {
       connect();
-    }, 200);
+    }, 1000);
   }
 }
 function createConnectionEstablishedPage(_other_host_name) {
@@ -201,11 +200,11 @@ function connect() {
     conn.send(`Hello!${host_name}`);
   });
 
-  setTimeout(() => {
-    if (!receive_info) {
-      connect()
-    }
-  }, 1500)
+  // setTimeout(() => {
+  //   if (!receive_info) {
+  //     connect()
+  //   }
+  // }, 1500)
 }
 
 function send(data) {
