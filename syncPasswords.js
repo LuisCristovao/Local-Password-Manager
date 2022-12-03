@@ -205,7 +205,7 @@ function connect(ms=1000) {
 
   setTimeout(() => {
     if (!receive_info) {
-      connect(ms+100)
+      connect(ms+500)
     }
   }, ms)
 }
