@@ -134,10 +134,11 @@ function startPage() {
     connection_established = true;
     // Send messages
     conn = _conn;
+    
+    setTimeout(() => { 
+      conn.send(`Hello!${host_name}`); 
+    }, 300)
 
-    setTimeout(() => {
-      conn.send(`Hello!${host_name}`);
-    }, 1000)
 
     conn.on("data", (data) => {
       console.log("Received3: ", data);
@@ -155,9 +156,7 @@ function startPage() {
 
   if (window.location.search.split("::")[1] != undefined) {
     //wait to load page until try first connect
-    setTimeout(() => {
-      connect();
-    }, 1000);
+    connect();
   }
 }
 function createConnectionEstablishedPage(_other_host_name) {
@@ -190,6 +189,7 @@ function connect() {
     conn.on("data", function (data) {
       console.log("Received0", data);
       receive_info = true
+      send(`Hello!${host_name}`)
       if (data.slice(0, 6).includes("Hello!")) {
         createConnectionEstablishedPage(data.slice(6));
       } else {
@@ -197,7 +197,7 @@ function connect() {
       }
     });
     // Send messages
-    conn.send(`Hello!${host_name}`);
+    //conn.send(`Hello!${host_name}`);
   });
 
   // setTimeout(() => {
