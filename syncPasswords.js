@@ -204,11 +204,11 @@ function connect(ms=1000) {
     //conn.send(`Hello!${host_name}`);
   });
 
-  // setTimeout(() => {
-  //   if (!receive_info) {
-  //     connect(ms+500)
-  //   }
-  // }, ms)
+  setTimeout(() => {
+    if (!receive_info) {
+      connect(ms+500)
+    }
+  }, ms)
 }
 
 function send(data) {
