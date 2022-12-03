@@ -183,7 +183,7 @@ function receiveDataPage(data) {
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
-function connect() {
+function connect(ms=1000) {
   //host that initiates invitation for connection
   conn = peer.connect(window.location.search.split("::")[1]);
 
@@ -203,11 +203,11 @@ function connect() {
     //conn.send(`Hello!${host_name}`);
   });
 
-  // setTimeout(() => {
-  //   if (!receive_info) {
-  //     connect()
-  //   }
-  // }, 1500)
+  setTimeout(() => {
+    if (!receive_info) {
+      connect(ms+100)
+    }
+  }, ms)
 }
 
 function send(data) {
