@@ -156,7 +156,10 @@ function startPage() {
 
   if (window.location.search.split("::")[1] != undefined) {
     //wait to load page until try first connect
-    connect();
+    setTimeout(()=>{
+      connect();
+    },500)
+    
   }
 }
 function createConnectionEstablishedPage(_other_host_name) {
