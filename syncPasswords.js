@@ -144,6 +144,7 @@ function startPage() {
       receive_info = true
       if (data.slice(0, 6).includes("Hello!")) {
         createConnectionEstablishedPage(data.slice(6));
+        conn.send(`Hello!${host_name}`);
       } else {
         receiveDataPage(data)
       }
@@ -204,7 +205,7 @@ function connect() {
     if (!receive_info) {
       connect()
     }
-  }, 500)
+  }, 1500)
 }
 
 function send(data) {
