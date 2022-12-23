@@ -1,35 +1,7 @@
 let prev_screen_ratio = PageWithHeightRatio();
 //function ----
 
-async function Communication(get = "get", msg = "") {
-  let url = "https://generic-server-py.herokuapp.com/";
-  let sync_id = getElement("sync_id").value;
-  if (get == "get") {
-    try {
-      var response = await fetch(url + "getKey", {
-        method: "POST",
-        "Content-Type": "text/html",
-        body: sync_id,
-      });
-      return await response.text();
-    } catch (err) {
-      alert(`request fail with error ${err}`);
-      return "";
-    }
-  } else {
-    try {
-      var response = await fetch(url + "setKey/" + sync_id, {
-        method: "POST",
-        "Content-Type": "text/html",
-        body: msg,
-      });
-      return await response.text();
-    } catch (err) {
-      alert(`request fail with error ${err}`);
-      return "";
-    }
-  }
-}
+
 function import_data(append) {
   let encrypted_db = document.getElementsByTagName("textarea")[0].value
   if (append) {
