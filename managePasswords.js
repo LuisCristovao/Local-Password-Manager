@@ -387,10 +387,14 @@ function initialTutorial(input) {
     startPage();
   }
 }
+function goToInitialMenu2(){
+  getElement("pass").value=""
+  setTimeout(()=>{window.location.search = "";},100)
+}
 function startPage() {
   if (dbIsEmpty()) {
     let html = "";
-    html += `<button class="btn"  style="${backHomeBtnSize()};left:0%;position: absolute;" onclick="goToInitialMenu()" >&lt;</button>`;
+    html += `<button class="btn"  style="${backHomeBtnSize()};left:0%;position: absolute;" onclick="goToInitialMenu2()" >&lt;</button>`;
     html += `<p style="${paragraphSize()};margin-bottom:10px">Master Password</p>`;
     html += `<input ${inputStyle()}  onfocus="setTimeout(()=>{this.setAttribute('focus','true')},10)" onblur="setTimeout(()=>this.setAttribute('focus','false'),10)" oninput="initialTutorial(this)" id="pass" type="password" placeholder="type master pass here">`;
     html += `<p style="font-size:${
@@ -399,7 +403,7 @@ function startPage() {
     getElement("ManagePasswords").innerHTML = html;
   } else {
     let html = "";
-    html += `<button class="btn" style="${backHomeBtnSize()};left:0%;position: absolute;" onclick="goToInitialMenu()" >&lt;</button>`;
+    html += `<button class="btn" style="${backHomeBtnSize()};left:0%;position: absolute;" onclick="goToInitialMenu2()" >&lt;</button>`;
     html += `<p style="${paragraphSize()};margin-bottom:10px">Master Password</p>`;
     html += `<input ${inputStyle()} onfocus="setTimeout(()=>{this.setAttribute('focus','true')},500)" onblur="setTimeout(()=>this.setAttribute('focus','false'),500)" oninput="getList()" id="pass" type="password" placeholder="type master pass here">`;
     html += `<p style="font-size:${
@@ -440,5 +444,5 @@ signalInput(getElement("pass"), "red");
 setInterval(() => {
   getElement("yyy").innerHTML=window.innerHeight
 }, 100); */
-//prevent users from see passwords with return page exploit
+
  
