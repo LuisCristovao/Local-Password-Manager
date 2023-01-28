@@ -415,7 +415,10 @@ function startPage() {
     html += `</div>`;
     getElement("ManagePasswords").innerHTML = html;
     getList();
-    setTimeout(()=>{getElement("pass").value=""},300)
+    const pressed_browser_return_button = performance && performance.getEntriesByType( 'navigation' ).map( nav => nav.type ).includes( 'back_forward' )
+    if(pressed_browser_return_button){
+      getElement("pass").value=""
+    }
   }
 }
 function checkScreenRatio() {
