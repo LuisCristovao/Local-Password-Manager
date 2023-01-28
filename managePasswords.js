@@ -382,7 +382,7 @@ function initialTutorial(input) {
     getElement("pass").setAttribute("oninput", "getList()");
     //}, 100);
     getElement("pass").value = input.value;
-    getElement("pass").focus()
+    getElement("pass").focus();
   } else {
     startPage();
   }
@@ -415,10 +415,6 @@ function startPage() {
     html += `</div>`;
     getElement("ManagePasswords").innerHTML = html;
     getList();
-    const pressed_browser_return_button = performance && performance.getEntriesByType( 'navigation' ).map( nav => nav.type ).includes( 'back_forward' )
-    if(pressed_browser_return_button){
-      getElement("pass").value=""
-    }
   }
 }
 function checkScreenRatio() {
@@ -444,3 +440,14 @@ signalInput(getElement("pass"), "red");
 setInterval(() => {
   getElement("yyy").innerHTML=window.innerHeight
 }, 100); */
+setTimeout(() => {
+  const pressed_browser_return_button =
+    performance &&
+    performance
+      .getEntriesByType("navigation")
+      .map((nav) => nav.type)
+      .includes("back_forward");
+  if (pressed_browser_return_button) {
+    getElement("pass").value = "";
+  }
+}, 100);
