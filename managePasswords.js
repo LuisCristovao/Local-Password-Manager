@@ -441,4 +441,4 @@ setInterval(() => {
   getElement("yyy").innerHTML=window.innerHeight
 }, 100); */
 //prevent users from see passwords with return page exploit
-window.history.forward(); 
+ 
