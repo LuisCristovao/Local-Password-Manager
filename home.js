@@ -91,7 +91,10 @@ start_home()
 checkScreenRatio(start_home)
 liAnimation()
 //prevent return button exploit
-history.pushState(null, null, location.href);
-window.onpopstate = function () {
-  history.go(1);
-};
+setTimeout(()=>{
+
+    history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+      history.go(1);
+    };
+},100)
