@@ -440,7 +440,7 @@ signalInput(getElement("pass"), "red");
 setInterval(() => {
   getElement("yyy").innerHTML=window.innerHeight
 }, 100); */
-setTimeout(() => {
+const myInterval =setInterval(() => {
   const pressed_browser_return_button =
     performance &&
     performance
@@ -449,5 +449,6 @@ setTimeout(() => {
       .includes("back_forward");
   if (pressed_browser_return_button) {
     getElement("pass").value = "";
+    clearInterval(myInterval);
   }
 }, 100);
