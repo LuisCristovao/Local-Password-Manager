@@ -440,15 +440,5 @@ signalInput(getElement("pass"), "red");
 setInterval(() => {
   getElement("yyy").innerHTML=window.innerHeight
 }, 100); */
-const myInterval =setInterval(() => {
-  const pressed_browser_return_button =
-    performance &&
-    performance
-      .getEntriesByType("navigation")
-      .map((nav) => nav.type)
-      .includes("back_forward");
-  if (pressed_browser_return_button) {
-    getElement("pass").value = "";
-    clearInterval(myInterval);
-  }
-}, 100);
+//prevent users from see passwords with return page exploit
+window.history.forward(); 
