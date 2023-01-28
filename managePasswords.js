@@ -415,6 +415,7 @@ function startPage() {
     html += `</div>`;
     getElement("ManagePasswords").innerHTML = html;
     getList();
+    setTimeout(()=>{getElement("pass").value=""},300)
   }
 }
 function checkScreenRatio() {
