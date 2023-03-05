@@ -389,6 +389,7 @@ function initialTutorial(input) {
 }
 function goToInitialMenu2(){
   getElement("pass").value=""
+  getElement("passwords_list").innerHTML="";
   setTimeout(()=>{window.location.search = "";},100)
 }
 function startPage() {
