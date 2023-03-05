@@ -389,7 +389,7 @@ function initialTutorial(input) {
 }
 function goToInitialMenu2(){
   getElement("pass").value=""
-  getElement("passwords_list").innerHTML="";
+  getElement("passwords_list").innerHTML=`<p style="${paragraphSize()}">No Passwords Stored or Wrong Password</p>`;
   setTimeout(()=>{window.location.search = "";},100)
 }
 function startPage() {
