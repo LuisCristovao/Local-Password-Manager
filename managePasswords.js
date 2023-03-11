@@ -389,7 +389,12 @@ function initialTutorial(input) {
 }
 function goToInitialMenu2(){
   getElement("pass").value=""
-  getElement("passwords_list").innerHTML=`<p style="${paragraphSize()}">No Passwords Stored or Wrong Password</p>`;
+  try {
+    
+    getElement("passwords_list").innerHTML=`<p style="${paragraphSize()}">No Passwords Stored or Wrong Password</p>`;
+  } catch (error) {
+    console.log("no password list available")
+  }
   setTimeout(()=>{window.location.search = "";},100)
 }
 function startPage() {
