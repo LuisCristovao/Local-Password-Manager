@@ -1,17 +1,16 @@
 let prev_screen_ratio = PageWithHeightRatio();
 //function ----
 
-
 function import_data(append) {
-  let encrypted_db = document.getElementsByTagName("textarea")[0].value
+  let encrypted_db = document.getElementsByTagName("textarea")[0].value;
   if (append) {
     writeDB(encrypted_db, true);
     alert("Success appending data!");
-    window.location.href = window.location.origin + "/Local-Password-Manager/"
+    window.location.href = window.location.origin + "/Local-Password-Manager/";
   } else {
     writeDB(encrypted_db, false);
     alert("Success importing data!");
-    window.location.href = window.location.origin + "/Local-Password-Manager/"
+    window.location.href = window.location.origin + "/Local-Password-Manager/";
   }
 }
 
@@ -19,9 +18,8 @@ function sendPasswordsEncrypted() {
   if (dbIsEmpty()) {
     alert("You have nothing to send!");
   } else {
-    conn.send(exportDB())
+    conn.send(exportDB());
   }
-
 }
 
 function paragraphSize() {
@@ -60,20 +58,20 @@ function calculateSyncID() {
 }
 function shareConnectionUrl(btn) {
   if (peer_id != null) {
-    copyToClipboard(window.location.origin + "/Local-Password-Manager/?Connect::" +
-      peer_id)
-    let old_text = btn.innerText
-    btn.innerText = "Copied Link!"
+    copyToClipboard(
+      window.location.origin + "/Local-Password-Manager/?Connect::" + peer_id
+    );
+    let old_text = btn.innerText;
+    btn.innerText = "Copied Link!";
     setTimeout(() => {
-      btn.innerText = old_text
-    }, 1000)
+      btn.innerText = old_text;
+    }, 1000);
   }
-
 }
 function trying_to_connect() {
   if (!receive_info) {
     conn.send(`Hello!${host_name}`);
-    setTimeout(trying_to_connect, 500)
+    setTimeout(trying_to_connect, 500);
   }
 }
 function startPage() {
@@ -88,15 +86,17 @@ function startPage() {
   var connection_established = false;
   // first host to receive connection
   peer.on("open", function (id) {
-    peer_id = id
+    peer_id = id;
     console.log("My peer ID is: " + id);
     document
       .getElementsByTagName("img")[0]
       .setAttribute(
         "src",
-        "https://api.qrserver.com/v1/create-qr-code/?data=" + window.location.origin + "/Local-Password-Manager/?Connect::" +
-        id +
-        "&amp;size=100x100"
+        "https://api.qrserver.com/v1/create-qr-code/?data=" +
+          window.location.origin +
+          "/Local-Password-Manager/?Connect::" +
+          id +
+          "&amp;size=100x100"
       );
   });
 
@@ -106,23 +106,21 @@ function startPage() {
     connection_established = true;
     // Send messages
     conn = _conn;
-    setTimeout(()=>{
+    setTimeout(() => {
       conn.send(`Hello!${host_name}`);
-    },300)
-    
+    }, 300);
 
     conn.on("data", (data) => {
       console.log("Received3: ", data);
-      receive_info = true
+      receive_info = true;
       if (data.slice(0, 6).includes("Hello!")) {
         createConnectionEstablishedPage(data.slice(6));
       } else {
-        receiveDataPage(data)
+        receiveDataPage(data);
       }
     });
 
     //setTimeout(trying_to_connect, 500)
-
   });
 
   if (window.location.search.split("::")[1] != undefined) {
@@ -159,12 +157,12 @@ function connect(ms = 1000) {
     conn.on("data", function (data) {
       console.log("Received0", data);
       //alert("Received0 " + data)
-      receive_info = true
-      send(`Hello!${host_name}`)
+      receive_info = true;
+      send(`Hello!${host_name}`);
       if (data.slice(0, 6).includes("Hello!")) {
         createConnectionEstablishedPage(data.slice(6));
       } else {
-        receiveDataPage(data)
+        receiveDataPage(data);
       }
     });
     // Send messages
@@ -173,9 +171,9 @@ function connect(ms = 1000) {
 
   setTimeout(() => {
     if (!receive_info) {
-      connect(ms + 500)
+      connect(ms + 500);
     }
-  }, ms)
+  }, ms);
 }
 
 function send(data) {
@@ -184,11 +182,15 @@ function send(data) {
 
 //Main----------
 //connection code ----
-var peer_id = null
-var receive_info = false
+var peer_id = null;
+var receive_info = false;
 const host_name = RandomPassSync(5);
 var other_host_name = null;
-var peer = new Peer();
-var conn = null
+var peer = new Peer({
+  config: {
+    iceServers: [{ url: "stun:stun.l.google.com:19302" }],
+  } /* Sample servers, please use appropriate ones */,
+});
+var conn = null;
 startPage();
 checkScreenRatio();
