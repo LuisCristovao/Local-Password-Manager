@@ -1,3 +1,4 @@
+let inactiveTimeOutId = undefined;
 let modal = false;
 let initial_body_height = body.offsetHeight;
 //manager_pass.setAttribute("oninput","getList()")
@@ -435,7 +436,23 @@ function checkScreenRatio() {
   }
   //setTimeout(checkScreenRatio,350)
 }
+function addInactiveTimeOut() {
+  // ten minutes = 10 * 60 * 1e3 millis
+  const timeToBeInactiveInMillis = 600000;
+  inactiveTimeOutId = setTimeout(goToInitialMenu, timeToBeInactiveInMillis)
+}
+
 //Main----------
+addInactiveTimeOut();
+// on user move handlers
+const onUserMove = () => {
+  clearTimeout(inactiveTimeOutId);
+  addInactiveTimeOut();
+}
+addEventListener("mousemove", onUserMove);
+addEventListener("touchmove", onUserMove);
+addEventListener("keydown", onUserMove);
+
 let prev_screen_ratio = PageWithHeightRatio();
 startPage();
 checkScreenRatio();
