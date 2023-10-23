@@ -438,7 +438,7 @@ function checkScreenRatio() {
 }
 function addInactiveTimeOut() {
   // ten minutes = 10 * 60 * 1e3 millis
-  const timeToBeInactiveInMillis = 600000;
+  const timeToBeInactiveInMillis = 10 * 60 * 1e3;
   inactiveTimeOutId = setTimeout(goToInitialMenu, timeToBeInactiveInMillis)
 }
 
