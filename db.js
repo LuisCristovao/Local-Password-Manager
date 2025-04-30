@@ -172,9 +172,11 @@ function dbToCsv(pass_value) {
       let d_json = JSON.parse(d);
       columns.forEach((col, index) => {
         if (index < columns.length - 1) {
-          line += decrypt(d_json[columns[index]], pass_value) + "\t";
+          let aux=decrypt(d_json[columns[index]], pass_value) + "\t";
+          line += aux.replaceAll("\n","\\n")
         } else {
-          line += decrypt(d_json[columns[index]], pass_value);
+          let aux=decrypt(d_json[columns[index]], pass_value);
+          line += aux.replaceAll("\n","\\n")
         }
       });
       line += "\n";
